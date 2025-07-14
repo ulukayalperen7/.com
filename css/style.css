@@ -881,10 +881,11 @@ body.light-mode .header {
         font-size: 1rem;
     }
     .hero-content {
-        margin-top: 2.5rem;
+        margin-top: 4rem;
+        padding-top: env(safe-area-inset-top, 0);
     }
     .profile-photo {
-        margin-top: 2.5rem;
+        margin-top: 3rem;
     }
 }
 
