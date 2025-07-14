@@ -886,18 +886,23 @@ body.light-mode .header {
         font-size: 1rem;
     }
     .hero-content {
-        margin-top: 3.2rem;
-        padding-top: calc(env(safe-area-inset-top, 0) + 1.2rem);
-    }
-    @supports (padding-top: max(0px)) {
-        .hero-content {
-            padding-top: max(env(safe-area-inset-top, 0), 1.5rem);
-        }
+        margin-top: 0;
+        padding-top: 3.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
     }
     .profile-photo {
-        margin-top: 2.2rem;
-        width: 110px;
-        height: 110px;
+        margin-top: 4.5rem;
+        width: 80px;
+        height: 80px;
+        max-width: 80vw;
+        max-height: 80vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: visible;
     }
 }
 
