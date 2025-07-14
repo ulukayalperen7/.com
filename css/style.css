@@ -862,6 +862,10 @@ body.light-mode .header {
 }
 
 @media (max-width: 480px) {
+    .header {
+        padding: 1.5rem 0 2.5rem 0;
+        min-height: 80px;
+    }
     .nav-container {
         padding: 0 1rem;
     }
@@ -881,11 +885,13 @@ body.light-mode .header {
         font-size: 1rem;
     }
     .hero-content {
-        margin-top: 4rem;
+        margin-top: 5.5rem;
         padding-top: env(safe-area-inset-top, 0);
     }
     .profile-photo {
-        margin-top: 3rem;
+        margin-top: 4rem;
+        width: 120px;
+        height: 120px;
     }
 }
 
