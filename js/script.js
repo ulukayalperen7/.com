@@ -366,11 +366,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize
     let savedTheme = localStorage.getItem('theme');
     if (!savedTheme) {
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-            savedTheme = 'light';
-        } else {
-            savedTheme = 'dark';
-        }
+        savedTheme = 'dark';
         localStorage.setItem('theme', savedTheme);
     }
     const savedLang = localStorage.getItem('language') || 'en';
