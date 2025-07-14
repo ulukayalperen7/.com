@@ -863,9 +863,9 @@ body.light-mode .header {
 
 @media (max-width: 480px) {
     .header {
-        padding: 1.5rem 0 2.5rem 0;
-        min-height: 80px;
-        margin-bottom: 3.5rem;
+        padding: 1.2rem 0 1.5rem 0;
+        min-height: 70px;
+        margin-bottom: 1.5rem;
     }
     .nav-container {
         padding: 0 1rem;
@@ -886,18 +886,18 @@ body.light-mode .header {
         font-size: 1rem;
     }
     .hero-content {
-        margin-top: 7rem;
-        padding-top: calc(env(safe-area-inset-top, 0) + 2.5rem);
+        margin-top: 3.2rem;
+        padding-top: calc(env(safe-area-inset-top, 0) + 1.2rem);
     }
     @supports (padding-top: max(0px)) {
         .hero-content {
-            padding-top: max(env(safe-area-inset-top, 0), 3.5rem);
+            padding-top: max(env(safe-area-inset-top, 0), 1.5rem);
         }
     }
     .profile-photo {
-        margin-top: 5rem;
-        width: 90px;
-        height: 90px;
+        margin-top: 2.2rem;
+        width: 110px;
+        height: 110px;
     }
 }
 
