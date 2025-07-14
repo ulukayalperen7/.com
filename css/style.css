@@ -880,7 +880,7 @@ body.light-mode .header {
         grid-template-columns: 1fr;
     }
     .hero-title {
-        font-size: 2rem;
+        margin-top: 1.2rem;
     }
     .hero-subtitle {
         font-size: 1rem;
@@ -894,7 +894,8 @@ body.light-mode .header {
         justify-content: flex-start;
     }
     .profile-photo {
-        margin-top: 4.5rem;
+        margin-top: 3.5rem;
+        margin-bottom: 2.5rem;
         width: 140px;
         height: 90px;
         max-width: 90vw;
