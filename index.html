@@ -26,6 +26,7 @@
           referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/chat.css" />
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap"
           rel="stylesheet" />
 </head>
@@ -327,5 +328,47 @@
     </footer>
 
     <script src="js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="js/chat.js"></script>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget" id="chat-widget">
+        <button class="chat-toggle-btn" id="chat-toggle-btn" aria-label="Toggle Chat">
+            <i class="fas fa-comment-dots"></i>
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="chat-container">
+            <div class="chat-header">
+                <div class="chat-header-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="chat-header-info">
+                    <h3 class="chat-header-title">Alperen's AI Assistant</h3>
+                    <div class="chat-header-status">
+                        <span class="status-dot"></span> Online
+                    </div>
+                </div>
+                <button class="chat-close-btn" id="chat-close-btn" aria-label="Close Chat">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <div class="message bot">
+                    <p>Hi! I'm Alperen's AI Assistant. How can I help you today?</p>
+                </div>
+                <div class="typing-indicator" id="typing-indicator">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            </div>
+            <div class="chat-input-container">
+                <input type="text" class="chat-input" id="chat-input" placeholder="Type your message..." autocomplete="off" />
+                <button class="chat-send-btn" id="chat-send-btn" disabled aria-label="Send Message">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
