@@ -9,9 +9,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Add greeting on first open
     let hasGreeted = false;
+    let currentSessionId = null;
 
     // Backend API URL
-    const API_URL = 'https://career-ai-backend-sfcs.onrender.com/chat';
+    // const API_URL = 'http://localhost:8000/chat'; // Local testing
+    const API_URL = 'https://career-ai-backend-sfcs.onrender.com/chat'; // Production URL
 
     // Toggle Chat Widget
     chatToggleBtn.addEventListener('click', () => {
@@ -24,27 +26,31 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!hasGreeted) {
                 hasGreeted = true;
                 setTimeout(() => {
-                    showTypingIndicator(); // Show typing immediately
+                    // Show typing immediately
                     // Fetch greeting from backend
+                    // Note: We don't send a session ID here, so a new one is created.
                     fetch(API_URL, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({ message: "Hello, please introduce yourself briefly in English." }), // Hidden prompt to generate introduction
+                        body: JSON.stringify({ message: "Hello", session_id: null }), // Initial handshake
                     })
                     .then(response => response.json())
                     .then(data => {
-                        hideTypingIndicator();
-                        if (data.agent_response) {
-                             appendMessage('bot', data.agent_response);
-                        } else if (data.response) {
+                        // Store session ID if provided
+                        if (data.session_id) {
+                            currentSessionId = data.session_id;
+                        }
+
+                        if (data.response) {
                              appendMessage('bot', data.response);
+                        } else if (data.agent_response) {
+                             appendMessage('bot', data.agent_response); 
                         }
                     })
                     .catch(error => {
                         console.error('Greeting Error:', error);
-                        hideTypingIndicator();
                         appendMessage('bot', "Hello! I'm Alperen's AI Assistant. How can I help you?");
                     });
                 }, 500);
@@ -80,6 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Clear input and disable button
         chatInput.value = '';
         chatSendBtn.disabled = true;
+        chatInput.style.height = 'auto'; // Reset height
 
         // Add user message to UI
         appendMessage('user', messageText);
@@ -94,31 +101,42 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ message: messageText }),
+                body: JSON.stringify({ 
+                    message: messageText,
+                    session_id: currentSessionId 
+                }),
             });
 
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                throw new Error('Network response was not ok');
             }
 
             const data = await response.json();
             
-            // Hide typing indicator
+            // Update session ID if it changed or was unset
+            if (data.session_id) {
+                currentSessionId = data.session_id;
+            }
+
             hideTypingIndicator();
 
-            // Add bot response to UI
-            if (data.agent_response) {
-                appendMessage('bot', data.agent_response);
-            } else if (data.response) {
+            // Handle response
+            if (data.response) {
                 appendMessage('bot', data.response);
+            } else if (data.agent_response) {
+                 appendMessage('bot', data.agent_response);
             } else {
-                throw new Error('Invalid response format');
+                appendMessage('bot', "I received your message but couldn't generate a response.");
             }
 
         } catch (error) {
-            console.error('Chat Error:', error);
+            console.error('Error:', error);
             hideTypingIndicator();
-            appendMessage('error', 'Sorry, I encountered an error connecting to the server. Please try again later.');
+            appendMessage('bot', "Sorry, something went wrong. Please check your connection and try again.");
+        } finally {
+            chatSendBtn.disabled = false;
+            chatInput.focus();
+            scrollToBottom();
         }
     }
 
