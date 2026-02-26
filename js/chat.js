@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Backend API URL
     // Detective Fix: Switch to PRODUCTION URL for live deployment
     const API_URL = 'https://career-ai-backend-sfcs.onrender.com/chat'; // Production URL
-    // const API_URL = 'http://localhost:8000/chat'; // Local testing URL (Commented out for release)
+   // const API_URL = 'http://localhost:8000/chat'; // Local testing URL (Commented out for release)
 
     // Toggle Chat Widget
     chatToggleBtn.addEventListener('click', () => {
