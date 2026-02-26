@@ -12,8 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentSessionId = null;
 
     // Backend API URL
-    // const API_URL = 'http://localhost:8000/chat'; // Local testing
+    // Detective Fix: Switch to PRODUCTION URL for live deployment
     const API_URL = 'https://career-ai-backend-sfcs.onrender.com/chat'; // Production URL
+    // const API_URL = 'http://localhost:8000/chat'; // Local testing URL (Commented out for release)
 
     // Toggle Chat Widget
     chatToggleBtn.addEventListener('click', () => {
@@ -29,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Show typing immediately
                     // Fetch greeting from backend
                     // Note: We don't send a session ID here, so a new one is created.
+                    // Detective Fix: Handle Promise properly and log errors visible
                     fetch(API_URL, {
                         method: 'POST',
                         headers: {
@@ -36,7 +38,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         },
                         body: JSON.stringify({ message: "Hello", session_id: null }), // Initial handshake
                     })
-                    .then(response => response.json())
+                    .then(response => {
+                        if (!response.ok) {
+                             throw new Error('Network response was not ok: ' + response.statusText);
+                        }
+                        return response.json();
+                    })
                     .then(data => {
                         // Store session ID if provided
                         if (data.session_id) {
@@ -50,8 +57,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     })
                     .catch(error => {
-                        console.error('Greeting Error:', error);
-                        appendMessage('bot', "Hello! I'm Alperen's AI Assistant. How can I help you?");
+                        console.error('Greeting Error:', error); 
+                        // Fallback only if backend is totally dead
+                        // But since we are debugging, let's see the error
+                        appendMessage('bot', "(Debug: Backend Connection Failed. Check Console.) Hello! I'm Alperen's AI Assistant.");
                     });
                 }, 500);
             }
@@ -132,7 +141,8 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.error('Error:', error);
             hideTypingIndicator();
-            appendMessage('bot', "Sorry, something went wrong. Please check your connection and try again.");
+            // Production-friendly error message
+            appendMessage('bot', "Connection unstable. Please check your internet or try again later.");
         } finally {
             chatSendBtn.disabled = false;
             chatInput.focus();
