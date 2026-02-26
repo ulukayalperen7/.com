@@ -56,7 +56,6 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
     position: relative;
-    perspective: 1000px;
     transition: background 0.4s, color 0.4s;
 }
 

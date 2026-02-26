@@ -7,6 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatSendBtn = document.getElementById('chat-send-btn');
     const typingIndicator = document.getElementById('typing-indicator');
 
+    // Add greeting on first open
+    let hasGreeted = false;
+
     // Backend API URL
     const API_URL = 'https://career-ai-backend-sfcs.onrender.com/chat';
 
@@ -17,6 +20,35 @@ document.addEventListener('DOMContentLoaded', () => {
             chatInput.focus();
             // Scroll to bottom if opened
             scrollToBottom();
+            
+            if (!hasGreeted) {
+                hasGreeted = true;
+                setTimeout(() => {
+                    showTypingIndicator(); // Show typing immediately
+                    // Fetch greeting from backend
+                    fetch(API_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ message: "Hello, please introduce yourself briefly in English." }), // Hidden prompt to generate introduction
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        hideTypingIndicator();
+                        if (data.agent_response) {
+                             appendMessage('bot', data.agent_response);
+                        } else if (data.response) {
+                             appendMessage('bot', data.response);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Greeting Error:', error);
+                        hideTypingIndicator();
+                        appendMessage('bot', "Hello! I'm Alperen's AI Assistant. How can I help you?");
+                    });
+                }, 500);
+            }
         }
     });
 
