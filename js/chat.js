@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Backend API URL
     // Detective Fix: Switch to PRODUCTION URL for live deployment
     const API_URL = 'https://career-ai-backend-sfcs.onrender.com/chat'; // Production URL
-   // const API_URL = 'http://localhost:8000/chat'; // Local testing URL (Commented out for release)
+    // const API_URL = 'http://localhost:8000/chat'; // Local testing URL (Commented out for release)
 
     // Toggle Chat Widget
     chatToggleBtn.addEventListener('click', () => {
@@ -23,14 +23,23 @@ document.addEventListener('DOMContentLoaded', () => {
             chatInput.focus();
             // Scroll to bottom if opened
             scrollToBottom();
-            
+
             if (!hasGreeted) {
                 hasGreeted = true;
+
+                // Add a temporary loading message to handle 45-second Render cold starts
+                const loadingMsgId = 'loading-msg-' + Date.now();
+                const loadingDiv = document.createElement('div');
+                loadingDiv.classList.add('message', 'bot');
+                loadingDiv.id = loadingMsgId;
+                loadingDiv.innerHTML = '<p><em>Sistem uyanıyor, ilk yanıt için lütfen yaklaşık 40-50 saniye bekleyin...</em></p>';
+                chatMessages.insertBefore(loadingDiv, typingIndicator);
+                scrollToBottom();
+
                 setTimeout(() => {
-                    // Show typing immediately
+                    showTypingIndicator(); // Show typing immediately
+
                     // Fetch greeting from backend
-                    // Note: We don't send a session ID here, so a new one is created.
-                    // Detective Fix: Handle Promise properly and log errors visible
                     fetch(API_URL, {
                         method: 'POST',
                         headers: {
@@ -38,30 +47,36 @@ document.addEventListener('DOMContentLoaded', () => {
                         },
                         body: JSON.stringify({ message: "Hello", session_id: null }), // Initial handshake
                     })
-                    .then(response => {
-                        if (!response.ok) {
-                             throw new Error('Network response was not ok: ' + response.statusText);
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        // Store session ID if provided
-                        if (data.session_id) {
-                            currentSessionId = data.session_id;
-                        }
+                        .then(response => {
+                            hideTypingIndicator();
+                            const loadMsg = document.getElementById(loadingMsgId);
+                            if (loadMsg) loadMsg.remove(); // Remove temporary message
 
-                        if (data.response) {
-                             appendMessage('bot', data.response);
-                        } else if (data.agent_response) {
-                             appendMessage('bot', data.agent_response); 
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Greeting Error:', error); 
-                        // Fallback only if backend is totally dead
-                        // But since we are debugging, let's see the error
-                        appendMessage('bot', "(Debug: Backend Connection Failed. Check Console.) Hello! I'm Alperen's AI Assistant.");
-                    });
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok: ' + response.statusText);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            // Store session ID if provided
+                            if (data.session_id) {
+                                currentSessionId = data.session_id;
+                            }
+
+                            if (data.response) {
+                                appendMessage('bot', data.response);
+                            } else if (data.agent_response) {
+                                appendMessage('bot', data.agent_response);
+                            }
+                        })
+                        .catch(error => {
+                            hideTypingIndicator();
+                            const loadMsg = document.getElementById(loadingMsgId);
+                            if (loadMsg) loadMsg.remove(); // Remove temporary message
+
+                            console.error('Greeting Error:', error);
+                            appendMessage('bot', "Şu anda sunucuya bağlanamıyorum. Lütfen sayfayı yenileyip tekrar deneyin.");
+                        });
                 }, 500);
             }
         }
@@ -110,9 +125,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ 
+                body: JSON.stringify({
                     message: messageText,
-                    session_id: currentSessionId 
+                    session_id: currentSessionId
                 }),
             });
 
@@ -121,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const data = await response.json();
-            
+
             // Update session ID if it changed or was unset
             if (data.session_id) {
                 currentSessionId = data.session_id;
@@ -133,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (data.response) {
                 appendMessage('bot', data.response);
             } else if (data.agent_response) {
-                 appendMessage('bot', data.agent_response);
+                appendMessage('bot', data.agent_response);
             } else {
                 appendMessage('bot', "I received your message but couldn't generate a response.");
             }
@@ -153,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function appendMessage(sender, text) {
         const messageDiv = document.createElement('div');
         messageDiv.classList.add('message', sender);
-        
+
         // Use marked.js for markdown parsing if available, otherwise fallback to basic formatting
         if (typeof marked !== 'undefined') {
             // Configure marked to open links in new tab
@@ -161,15 +176,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 breaks: true,
                 gfm: true
             });
-            
+
             // Custom renderer for links
             const renderer = new marked.Renderer();
             const linkRenderer = renderer.link;
-            renderer.link = function(href, title, text) {
+            renderer.link = function (href, title, text) {
                 const html = linkRenderer.call(renderer, href, title, text);
                 return html.replace(/^<a /, '<a target="_blank" rel="noopener noreferrer" ');
             };
-            
+
             messageDiv.innerHTML = marked.parse(text, { renderer: renderer });
         } else {
             let formattedText = text
@@ -177,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 .replace(/\n/g, '<br>');
             messageDiv.innerHTML = `<p>${formattedText}</p>`;
         }
-        
+
         // Insert before typing indicator
         chatMessages.insertBefore(messageDiv, typingIndicator);
         scrollToBottom();
