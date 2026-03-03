@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const loadingDiv = document.createElement('div');
                 loadingDiv.classList.add('message', 'bot');
                 loadingDiv.id = loadingMsgId;
-                loadingDiv.innerHTML = '<p><em>Sistem uyanıyor, ilk yanıt için lütfen yaklaşık 40-50 saniye bekleyin...</em></p>';
+                loadingDiv.innerHTML = '<p><em>System is waking up, please wait a moment for the first response...</em></p>';
                 chatMessages.insertBefore(loadingDiv, typingIndicator);
                 scrollToBottom();
 
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             if (loadMsg) loadMsg.remove(); // Remove temporary message
 
                             console.error('Greeting Error:', error);
-                            appendMessage('bot', "Şu anda sunucuya bağlanamıyorum. Lütfen sayfayı yenileyip tekrar deneyin.");
+                            appendMessage('bot', "I cannot connect to the server right now. Please refresh the page and try again.");
                         });
                 }, 500);
             }
