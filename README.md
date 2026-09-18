@@ -37,6 +37,7 @@ Do not submit test messages to the production APIs during automated checks.
 - Phase 1: three JavaScript modules, one initialization path, semantic localization keys and optional preference storage.
 - Phase 2: projects before skills, separate experience, concise education and grouped stack.
 - Phase 3: system typography, neutral themes with a green accent, compact hero, responsive content and integrated chat. Removed decorative animations, old card styles, font/icon CDNs and placeholder avatar.
+- Phase 4: native section anchors with measured header offset, clear Formspree handoff, 90-second chat timeout and retained input on failure. No automatic retries; browser abort does not guarantee cancellation of server-side LLM work.
 
 Browser automation was unavailable during these changes. Rendered verification remains required.
 

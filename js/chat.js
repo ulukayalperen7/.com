@@ -14,9 +14,17 @@ export function initChat() {
     let requestInFlight = false;
 
     const API_URL = 'https://career-ai-backend-sfcs.onrender.com/chat';
+    // Allow time for a cold start, but never leave the interface waiting indefinitely.
+    const REQUEST_TIMEOUT_MS = 90_000;
     const errorMessages = {
-        en: "I couldn't get a response. Please try again later.",
-        tr: 'Yanıt alınamadı. Lütfen daha sonra tekrar deneyin.'
+        en: {
+            failed: "I couldn't get a response. Your message is still in the input; you can edit it or try again.",
+            timeout: "The reply took too long. The server may still be processing it. Your message is still in the input; send it again only if you want to retry."
+        },
+        tr: {
+            failed: 'Yanıt alınamadı. Mesajınız giriş alanında duruyor; düzenleyebilir veya tekrar gönderebilirsiniz.',
+            timeout: 'Yanıt beklenenden uzun sürdü. Sunucu hâlâ işliyor olabilir. Mesajınız giriş alanında duruyor; yalnızca yeniden denemek isterseniz tekrar gönderin.'
+        }
     };
 
     function setChatOpen(isOpen) {
@@ -64,7 +72,7 @@ export function initChat() {
         if (requestInFlight || !messageText || !chatWidget.classList.contains('open')) return;
 
         requestInFlight = true;
-        chatInput.value = '';
+        chatInput.readOnly = true;
         updateSendButton();
 
         appendMessage('user', messageText);
@@ -72,9 +80,12 @@ export function initChat() {
         chatMessages.setAttribute('aria-busy', 'true');
         scrollToBottom();
 
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
         try {
             const response = await fetch(API_URL, {
                 method: 'POST',
+                signal: controller.signal,
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -99,12 +110,16 @@ export function initChat() {
                 throw new Error('Invalid chat response');
             }
             appendMessage('bot', reply);
+            chatInput.value = '';
 
         } catch (error) {
             console.error('Chat request failed:', error);
-            appendMessage('bot', errorMessages[document.documentElement.lang] || errorMessages.en);
+            const messages = errorMessages[document.documentElement.lang] || errorMessages.en;
+            appendMessage('bot', controller.signal.aborted ? messages.timeout : messages.failed);
         } finally {
+            clearTimeout(timeout);
             requestInFlight = false;
+            chatInput.readOnly = false;
             typingIndicator.classList.remove('active');
             chatMessages.setAttribute('aria-busy', 'false');
             updateSendButton();

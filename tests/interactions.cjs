@@ -111,13 +111,15 @@ function page(language = 'en', storageBlocked = false) {
     assert.equal(p.requests.length,1);
     assert.deepEqual(JSON.parse(p.requests[0].options.body),{message:'<img src=x onerror=alert(1)> **text**',session_id:null});
     assert.equal(id('chat-messages').children.at(-2).children.length,0);
-    id('chat-input').value='Next question'; await id('chat-input').emit('input');
+    assert.equal(id('chat-input').readOnly,true);
+    await id('chat-input').emit('input');
     await id('chat-input').emit('keydown',{key:'Enter'}); await id('chat-send-btn').emit('click');
     assert.equal(p.requests.length,1,'Duplicate sends blocked'); assert.equal(id('chat-send-btn').disabled,true);
     await id('chat-close-btn').emit('click');
     p.requests[0].resolve({ok:true,json:async()=>({response:'Answer',session_id:'session-1'})}); await first;
     assert.equal(p.document.activeElement,id('chat-toggle-btn')); assert.equal(id('chat-container').inert,true);
     await id('chat-toggle-btn').emit('click');
+    id('chat-input').value='Next question';
     const second=id('chat-send-btn').emit('click');
     assert.equal(JSON.parse(p.requests[1].options.body).session_id,'session-1');
     p.requests[1].resolve({ok:true,json:async()=>({agent_response:'Legacy answer',session_id:'session-1'})}); await second;
@@ -128,6 +130,18 @@ function page(language = 'en', storageBlocked = false) {
         if(mode==='network')request.reject(Error('offline'));
         else request.resolve({ok:mode!=='http',json:async()=>{if(mode==='json')throw Error('invalid');return {};}});
         await pending; assert.equal(id('typing-indicator').classList.contains('active'),false);
+        assert.equal(id('chat-input').value,mode,'Failed input remains recoverable');
+        assert.equal(id('chat-input').readOnly,false);
     }
+    id('chat-input').value='Slow request';
+    const slow=id('chat-send-btn').emit('click');
+    const requestCount=p.requests.length;
+    const timeout=[...p.timers.values()].find(t=>t.delay===90_000);
+    assert.ok(timeout);timeout.cb();await slow;
+    assert.equal(p.requests.length,requestCount,'Timeout must not retry automatically');
+    assert.equal(id('chat-input').value,'Slow request');
+    assert.equal(id('chat-input').readOnly,false);
+    assert.equal(id('typing-indicator').classList.contains('active'),false);
+    assert.equal(p.timers.size,0);
     console.log('PASS: mocked initialization, storage failure, EN/TR round trip, themes, menu, native form, chat serialization/session/errors and closed-chat focus.');
 })();

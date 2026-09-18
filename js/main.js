@@ -21,71 +21,37 @@ function initTheme() {
 }
 
 function initNavigation() {
-    const navLinks = document.querySelectorAll('.nav-link');
-    const sections = document.querySelectorAll('section[id]');
-    // Active navigation highlight on scroll
-    function updateActiveNavLink() {
-        let current = '';
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            if (window.scrollY >= sectionTop - 200) {
-                current = section.getAttribute('id');
-            }
-        });
-
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${current}`) {
-                link.classList.add('active');
-            }
-        });
-    }
-
-    // Smooth scrolling for navigation links
-    function initSmoothScrolling() {
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetId = link.getAttribute('href').substring(1);
-                const targetElement = document.getElementById(targetId);
-
-                if (targetElement) {
-                    const headerHeight = document.querySelector('.header').offsetHeight;
-                    const targetPosition = targetElement.offsetTop - headerHeight;
-
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-    }
-
+    const header = document.querySelector('.header');
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
-    if (hamburger && navMenu) {
-        const setMenuOpen = isOpen => {
-            navMenu.classList.toggle('open', isOpen);
-            hamburger.setAttribute('aria-expanded', String(isOpen));
-        };
-        hamburger.addEventListener('click', () => {
-            setMenuOpen(!navMenu.classList.contains('open'));
-        });
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => setMenuOpen(false));
-        });
-        document.addEventListener('keydown', event => {
-            if (event.key === 'Escape' && navMenu.classList.contains('open')) {
-                setMenuOpen(false);
-                hamburger.focus();
-            }
-        });
-        window.matchMedia('(max-width: 60rem)').addEventListener('change', () => setMenuOpen(false));
-    }
-    initSmoothScrolling();
-    updateActiveNavLink();
-    window.addEventListener('scroll', updateActiveNavLink, { passive: true });
+    if (!header || !hamburger || !navMenu) return;
+
+    const measureHeader = () => {
+        document.documentElement.style.setProperty('--header-height', `${header.getBoundingClientRect().height}px`);
+    };
+    const setMenuOpen = isOpen => {
+        navMenu.classList.toggle('open', isOpen);
+        hamburger.setAttribute('aria-expanded', String(isOpen));
+        measureHeader();
+    };
+    hamburger.addEventListener('click', () => setMenuOpen(!navMenu.classList.contains('open')));
+    document.querySelectorAll('.nav-link').forEach(link => {
+        // Native anchors keep URL hashes, history and keyboard navigation intact.
+        link.addEventListener('click', () => setMenuOpen(false));
+    });
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && navMenu.classList.contains('open')) {
+            setMenuOpen(false);
+            hamburger.focus();
+        }
+    });
+    document.addEventListener('click', event => {
+        if (!header.contains(event.target)) setMenuOpen(false);
+    });
+    window.matchMedia('(max-width: 60rem)').addEventListener('change', () => setMenuOpen(false));
+    if (typeof ResizeObserver !== 'undefined') new ResizeObserver(measureHeader).observe(header);
+    else window.addEventListener('resize', measureHeader);
+    measureHeader();
 }
 
 // Module scripts run after HTML parsing. Optional features fail independently.
