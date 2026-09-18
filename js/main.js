@@ -10,8 +10,7 @@ function initTheme() {
     } catch { /* Storage is optional. */ }
     const applyTheme = () => {
         document.body.classList.toggle('light-mode', theme === 'light');
-        const icon = button?.querySelector('i');
-        if (icon) icon.className = `fas fa-${theme === 'light' ? 'sun' : 'moon'} toggle-icon`;
+        button?.setAttribute('aria-pressed', String(theme === 'light'));
     };
     applyTheme();
     button?.addEventListener('click', () => {
@@ -82,37 +81,15 @@ function initNavigation() {
                 hamburger.focus();
             }
         });
-        window.matchMedia('(max-width: 768px)').addEventListener('change', () => setMenuOpen(false));
+        window.matchMedia('(max-width: 60rem)').addEventListener('change', () => setMenuOpen(false));
     }
     initSmoothScrolling();
     updateActiveNavLink();
     window.addEventListener('scroll', updateActiveNavLink, { passive: true });
 }
 
-function createParticles() {
-        const particlesContainer = document.querySelector('.particles');
-        if (!particlesContainer) return;
-
-        for (let i = 0; i < 50; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.cssText = `
-                position: absolute;
-                width: 2px;
-                height: 2px;
-                background: rgba(0, 255, 255, 0.5);
-                border-radius: 50%;
-                left: ${Math.random() * 100}%;
-                top: ${Math.random() * 100}%;
-                animation: particleFloat ${3 + Math.random() * 4}s ease-in-out infinite;
-                animation-delay: ${Math.random() * 2}s;
-            `;
-            particlesContainer.appendChild(particle);
-        }
-    }
-
 // Module scripts run after HTML parsing. Optional features fail independently.
-for (const initialize of [initI18n, initTheme, initNavigation, initChat, createParticles]) {
+for (const initialize of [initI18n, initTheme, initNavigation, initChat]) {
     try { initialize(); } catch (error) { console.error(`${initialize.name} failed:`, error); }
 }
 const year = document.getElementById('copyright-year');

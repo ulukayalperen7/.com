@@ -16,30 +16,16 @@
     <meta name="twitter:title" data-i18n="page.title" data-i18n-attr="content" content="Alperen Ulukaya - Computer Engineering" />
     <meta name="twitter:description" data-i18n="page.description" data-i18n-attr="content" content="Alperen Ulukaya's portfolio. Computer Engineering student focused on backend development and AI systems." />
 
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-          integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-          crossorigin="anonymous"
-          referrerpolicy="no-referrer" />
-
-    <link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/chat.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet" />
 </head>
 <body>
-    <div class="bg-animation">
-        <div class="cyber-grid"></div>
-        <div class="particles"></div>
-        <div class="digital-rain"></div>
-    </div>
-
     <header class="header">
         <div class="nav-container">
-            <div class="logo">
+            <a class="logo" href="#home">
                 <span class="logo-text">Alperen Ulukaya</span>
                 <span class="logo-subtitle" data-i18n="logo.subtitle">Computer Engineering</span>
-            </div>
+            </a>
             <nav class="nav-menu" id="nav-menu">
                 <a href="#projects" class="nav-link" data-i18n="nav.projects">Projects</a>
                 <a href="#experience" class="nav-link" data-i18n="nav.experience">Experience</a>
@@ -47,30 +33,26 @@
                 <a href="#skills" class="nav-link" data-i18n="nav.skills">Stack</a>
                 <a href="#contact" class="nav-link" data-i18n="nav.contact">Contact</a>
             </nav>
-            <button class="hamburger" aria-label="Toggle navigation" data-i18n="nav.toggle" data-i18n-attr="aria-label" aria-expanded="false" aria-controls="nav-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
             <div class="nav-controls">
                 <button class="theme-toggle" aria-label="Change theme" data-i18n="theme.toggle" data-i18n-attr="aria-label">
-                    <i class="fas fa-moon toggle-icon"></i>
+                    <span class="theme-symbol" aria-hidden="true"></span>
                 </button>
                 <button class="lang-toggle" aria-label="Switch to Turkish" data-i18n="language.toggle" data-i18n-attr="aria-label">
                     <span class="flag-en">EN</span>
                     <span class="flag-tr" style="display:none">TR</span>
                 </button>
             </div>
+            <button class="hamburger" aria-label="Toggle navigation" data-i18n="nav.toggle" data-i18n-attr="aria-label" aria-expanded="false" aria-controls="nav-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
         </div>
     </header>
 
     <main id="main-content">
         <section class="hero" id="home" aria-labelledby="hero-title">
             <div class="container hero-content">
-                <div class="profile-photo">
-                    <div class="photo-frame"><div class="profile-placeholder">&#128104;&#8205;&#128187;</div></div>
-                    <div class="orbit-ring ring-1"></div><div class="orbit-ring ring-2"></div><div class="orbit-ring ring-3"></div>
-                </div>
                 <p class="eyebrow" data-i18n="hero.discipline">Computer Engineering</p>
                 <h1 class="hero-title" id="hero-title">Alperen Ulukaya</h1>
                 <p class="hero-subtitle" data-i18n="hero.focus">Backend &amp; AI Systems</p>
@@ -142,33 +124,27 @@
             </div>
         </section>
 
-        <section class="section" id="contact">
+        <section class="section" id="contact" aria-labelledby="contact-title">
             <div class="container">
-                <h2 class="section-title">
-                    <span class="title-glow" data-i18n="contact.title">Contact Me</span>
-                    <div class="title-underline"></div>
-                </h2>
+                <div class="section-heading"><h2 id="contact-title" data-i18n="contact.title">Contact</h2></div>
                 <div class="contact-content">
                     <div class="contact-info">
                         <h3 data-i18n="contact.subtitle">Let's Connect</h3>
                         <p class="contact-text" data-i18n="contact.text">I'm always open to discussing new opportunities and innovative projects.</p>
                         <div class="contact-links">
                             <a href="mailto:alperenulukaya07@gmail.com" class="contact-link">
-                                <i class="fas fa-envelope contact-icon"></i>
                                 <div class="contact-details">
                                     <span class="contact-label" data-i18n="form.email">Email</span>
                                     <span class="contact-value">alperenulukaya07@gmail.com</span>
                                 </div>
                             </a>
-                            <a href="https://github.com/ulukayalperen7" class="contact-link" target="_blank" aria-label="GitHub">
-                                <i class="fab fa-github contact-icon"></i>
+                            <a href="https://github.com/ulukayalperen7" class="contact-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                                 <div class="contact-details">
                                     <span class="contact-label">GitHub</span>
                                     <span class="contact-value">ulukayalperen7</span>
                                 </div>
                             </a>
-                            <a href="https://www.linkedin.com/in/alperenulukaya/" class="contact-link" target="_blank" aria-label="LinkedIn">
-                                <i class="fab fa-linkedin contact-icon"></i>
+                            <a href="https://www.linkedin.com/in/alperenulukaya/" class="contact-link" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                                 <div class="contact-details">
                                     <span class="contact-label">LinkedIn</span>
                                     <span class="contact-value">alperenulukaya</span>
@@ -190,7 +166,6 @@
                             <textarea id="message" name="message" rows="5" required></textarea>
                         </div>
                         <button type="submit" class="submit-btn">
-                            <i class="fas fa-paper-plane btn-icon"></i>
                             <span class="btn-text" data-i18n="form.submit">Send Message</span>
                         </button>
                     </form>
@@ -208,14 +183,11 @@
                     <p class="footer-subtext" data-i18n="footer.subtext">Computer Engineering, Akdeniz University</p>
                 </div>
                 <div class="footer-links">
-                    <a href="https://github.com/ulukayalperen7" target="_blank" aria-label="GitHub">
-                        <i class="fab fa-github"></i> GitHub
+                    <a href="https://github.com/ulukayalperen7" target="_blank" rel="noopener noreferrer" aria-label="GitHub"> GitHub
                     </a>
-                    <a href="https://www.linkedin.com/in/alperenulukaya/" target="_blank" aria-label="LinkedIn">
-                        <i class="fab fa-linkedin"></i> LinkedIn
+                    <a href="https://www.linkedin.com/in/alperenulukaya/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"> LinkedIn
                     </a>
-                    <a href="mailto:alperenulukaya07@gmail.com">
-                        <i class="fas fa-envelope"></i> <span data-i18n="form.email">Email</span>
+                    <a href="mailto:alperenulukaya07@gmail.com"> <span data-i18n="form.email">Email</span>
                     </a>
                 </div>
             </div>
@@ -234,37 +206,26 @@
     <!-- Chat Widget -->
     <div class="chat-widget" id="chat-widget">
         <button class="chat-toggle-btn" id="chat-toggle-btn" aria-label="Toggle chat" data-i18n="chat.toggle" data-i18n-attr="aria-label" aria-expanded="false" aria-controls="chat-container">
-            <i class="fas fa-comment-dots"></i>
-            <i class="fas fa-times"></i>
+            <span data-i18n="chat.launcher">Ask about my work</span>
         </button>
         <div class="chat-container" id="chat-container" inert aria-hidden="true">
             <div class="chat-header">
-                <div class="chat-header-icon">
-                    <i class="fas fa-robot"></i>
-                </div>
+
                 <div class="chat-header-info">
-                    <h3 class="chat-header-title" data-i18n="chat.title">Alperen's AI Assistant</h3>
+                    <h2 class="chat-header-title" data-i18n="chat.title">Portfolio assistant</h2>
                     <div class="chat-header-status" data-i18n="chat.status">Portfolio chat</div>
                 </div>
-                <button class="chat-close-btn" id="chat-close-btn" aria-label="Close chat" data-i18n="chat.close" data-i18n-attr="aria-label">
-                    <i class="fas fa-times"></i>
-                </button>
+                <button class="chat-close-btn" id="chat-close-btn" aria-label="Close chat" data-i18n="chat.close" data-i18n-attr="aria-label"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="chat-messages" id="chat-messages">
                 <div class="message bot">
                     <p data-i18n="chat.greeting">Hi! Ask me about Alperen's background, experience, or skills.</p>
                 </div>
-                <div class="typing-indicator" id="typing-indicator" role="status" aria-label="Waiting for a reply" data-i18n="chat.loading" data-i18n-attr="aria-label">
-                    <div class="typing-dot" aria-hidden="true"></div>
-                    <div class="typing-dot" aria-hidden="true"></div>
-                    <div class="typing-dot" aria-hidden="true"></div>
-                </div>
+                <div class="typing-indicator" id="typing-indicator" role="status"><span data-i18n="chat.loading">Waiting for a reply...</span></div>
             </div>
             <div class="chat-input-container">
                 <input type="text" class="chat-input" id="chat-input" placeholder="Type your message..." aria-label="Type your message..." data-i18n="chat.input" data-i18n-attr="placeholder" autocomplete="off" />
-                <button class="chat-send-btn" id="chat-send-btn" disabled aria-label="Send Message" data-i18n="form.submit" data-i18n-attr="aria-label">
-                    <i class="fas fa-paper-plane"></i>
-                </button>
+                <button class="chat-send-btn" id="chat-send-btn" disabled aria-label="Send Message" data-i18n="form.submit" data-i18n-attr="aria-label"><span aria-hidden="true">&uarr;</span></button>
             </div>
         </div>
     </div>

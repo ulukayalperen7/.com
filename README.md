@@ -36,6 +36,7 @@ Do not submit test messages to the production APIs during automated checks.
 - Phase 0: safe chat rendering, request serialization, mobile cascade, localized identity and honest contact behavior.
 - Phase 1: three JavaScript modules, one initialization path, semantic localization keys and optional preference storage.
 - Phase 2: projects before skills, separate experience, concise education and grouped stack.
+- Phase 3: system typography, neutral themes with a green accent, compact hero, responsive content and integrated chat. Removed decorative animations, old card styles, font/icon CDNs and placeholder avatar.
 
 Browser automation was unavailable during these changes. Rendered verification remains required.
 
