@@ -3,21 +3,18 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Alperen Ulukaya - Software Developer</title>
-    <meta name="description" content="Alperen Ulukaya'nın kişisel portföyü. Bilgisayar mühendisliği öğrencisi, yazılım geliştirici ve yapay zeka meraklısı." />
-    <link rel="icon" type="image/png" href="/favicon.png" />
+    <title data-i18n="page_title">Alperen Ulukaya - Computer Engineering Student</title>
+    <meta name="description" data-i18n="page_description" data-i18n-attr="content" content="Alperen Ulukaya's portfolio. Computer Engineering student focused on backend development and AI systems." />
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://seninsiten.com/" />
-    <meta property="og:title" content="Alperen Ulukaya - Software Developer" />
-    <meta property="og:description" content="Alperen Ulukaya'nın kişisel portföyü. Bilgisayar mühendisliği öğrencisi, yazılım geliştirici ve yapay zeka meraklısı." />
-    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:url" content="https://alperenulukaya.com/" />
+    <meta property="og:title" data-i18n="page_title" data-i18n-attr="content" content="Alperen Ulukaya - Computer Engineering Student" />
+    <meta property="og:description" data-i18n="page_description" data-i18n-attr="content" content="Alperen Ulukaya's portfolio. Computer Engineering student focused on backend development and AI systems." />
     <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://seninsiten.com/" />
-    <meta name="twitter:title" content="Alperen Ulukaya - Software Developer" />
-    <meta name="twitter:description" content="Alperen Ulukaya'nın kişisel portföyü. Bilgisayar mühendisliği öğrencisi, yazılım geliştirici ve yapay zeka meraklısı." />
-    <meta name="twitter:image" content="/og-image.png" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:url" content="https://alperenulukaya.com/" />
+    <meta name="twitter:title" data-i18n="page_title" data-i18n-attr="content" content="Alperen Ulukaya - Computer Engineering Student" />
+    <meta name="twitter:description" data-i18n="page_description" data-i18n-attr="content" content="Alperen Ulukaya's portfolio. Computer Engineering student focused on backend development and AI systems." />
 
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -35,41 +32,32 @@
         <div class="cyber-grid"></div>
         <div class="particles"></div>
         <div class="digital-rain"></div>
-        <div class="floating-elements">
-            <div class="floating-cube"></div>
-            <div class="floating-cube"></div>
-            <div class="floating-cube"></div>
-            <div class="floating-sphere"></div>
-            <div class="floating-sphere"></div>
-        </div>
     </div>
 
-    <div class="cursor-follower"></div>
-    
     <header class="header">
         <div class="nav-container">
             <div class="logo">
                 <span class="logo-text">Alperen Ulukaya</span>
-                <span class="logo-subtitle">Computer Engineering Student</span>
+                <span class="logo-subtitle" data-i18n="logo_subtitle">Computer Engineering Student</span>
             </div>
-            <nav class="nav-menu">
-                <a href="#home" class="nav-link">Home</a>
-                <a href="#about" class="nav-link">About</a>
-                <a href="#skills" class="nav-link">Skills</a>
-                <a href="#contact" class="nav-link">Contact</a>
+            <nav class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link" data-i18n="nav_home">Home</a>
+                <a href="#about" class="nav-link" data-i18n="nav_about">About</a>
+                <a href="#skills" class="nav-link" data-i18n="nav_skills">Skills</a>
+                <a href="#contact" class="nav-link" data-i18n="nav_contact">Contact</a>
             </nav>
-            <button class="hamburger" aria-label="Menüyü Aç/Kapat">
+            <button class="hamburger" aria-label="Toggle navigation" data-i18n="nav_toggle" data-i18n-attr="aria-label" aria-expanded="false" aria-controls="nav-menu">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
             </button>
             <div class="nav-controls">
-                <button class="theme-toggle" aria-label="Tema değiştir">
+                <button class="theme-toggle" aria-label="Change theme" data-i18n="theme_toggle" data-i18n-attr="aria-label">
                     <i class="fas fa-moon toggle-icon"></i>
                 </button>
-                <button class="lang-toggle" aria-label="Change language">
-                    <span class="flag-en" style="display:none">EN</span>
-                    <span class="flag-tr">TR</span>
+                <button class="lang-toggle" aria-label="Switch to Turkish" data-i18n="language_toggle" data-i18n-attr="aria-label">
+                    <span class="flag-en">EN</span>
+                    <span class="flag-tr" style="display:none">TR</span>
                 </button>
             </div>
         </div>
@@ -82,68 +70,60 @@
                     <div class="profile-photo">
                         <div class="photo-frame">
                             <div class="profile-placeholder">
-                                <div class="hologram-effect"></div>
                                 👨‍💻
                             </div>
                         </div>
-                        <div class="photo-glow"></div>
                         <div class="orbit-ring ring-1"></div>
                         <div class="orbit-ring ring-2"></div>
                         <div class="orbit-ring ring-3"></div>
                     </div>
                     <h1 class="hero-title">
-                        <span class="glitch-text" data-text="Alperen Ulukaya">Alperen Ulukaya</span>
+                        <span>Alperen Ulukaya</span>
                     </h1>
                     <p class="hero-subtitle">
-                        <span class="typing-text">Student | AI Enthusiast | Full-Stack Developer</span>
+                        <span class="typing-text" data-i18n="hero_subtitle">Computer Engineering Student | Backend Development &amp; AI Systems</span>
                     </p>
                     <div class="hero-buttons">
-                        <a href="#contact" class="cta-button contact-btn" aria-label="İletişim">
+                        <a href="#contact" class="cta-button contact-btn">
                             <i class="fas fa-envelope btn-icon"></i>
-                            <span class="btn-text">Get In Touch</span>
-                            <div class="btn-glow"></div>
+                            <span class="btn-text" data-i18n="btn_contact">Get In Touch</span>
                         </a>
                         <a href="https://github.com/ulukayalperen7" class="cta-button github-btn" target="_blank" aria-label="GitHub">
                             <i class="fab fa-github btn-icon"></i>
                             <span class="btn-text">GitHub</span>
-                            <div class="btn-glow"></div>
                         </a>
                         <a href="https://www.linkedin.com/in/alperenulukaya/" class="cta-button linkedin-btn" target="_blank" aria-label="LinkedIn">
                             <i class="fab fa-linkedin btn-icon"></i>
                             <span class="btn-text">LinkedIn</span>
-                            <div class="btn-glow"></div>
                         </a>
                     </div>
                 </div>
-            </div>
-            <div class="scroll-indicator">
-                <div class="scroll-arrow"></div>
             </div>
         </section>
 
         <section class="section" id="about">
             <div class="container">
                 <h2 class="section-title">
-                    <span class="title-glow">About Me</span>
+                    <span class="title-glow" data-i18n="about_title">About Me</span>
                     <div class="title-underline"></div>
                 </h2>
                 <div class="cards-grid">
                     <div class="card education-card">
                         <div class="card-header">
                             <i class="fas fa-graduation-cap card-icon"></i>
-                            <h3>Education</h3>
+                            <h3 data-i18n="education_title">Education</h3>
                         </div>
                         <div class="card-content">
                             <div class="education-item">
-                                <h4>Bachelor of Science - Computer Engineering</h4>
-                                <p class="education-detail">Akdeniz University (2023-2027)</p>
+                                <h4 data-i18n="edu_bsc">Bachelor of Science - Computer Engineering</h4>
+                                <p class="education-detail" data-i18n="edu_bsc_school">Akdeniz University (2023-2027)</p>
                                 <div class="progress-bar">
                                     <div class="progress-fill" style="width: 60%"></div>
                                 </div>
                             </div>
                             <div class="education-item">
-                                <h4>Preparatory School</h4>
-                                <p class="education-detail">Akdeniz University (2022-2023)</p>
+                                <h4 data-i18n="edu_prep">Preparatory School</h4>
+                                <p class="education-detail" data-i18n="edu_prep_school">Akdeniz University (2022-2023)</p>
                                 <div class="progress-bar">
                                     <div class="progress-fill" style="width: 100%"></div>
                                 </div>
@@ -154,16 +134,16 @@
                     <div class="card experience-card">
                         <div class="card-header">
                             <i class="fas fa-briefcase card-icon"></i>
-                            <h3>Experience</h3>
+                            <h3 data-i18n="experience_title">Experience</h3>
                         </div>
                         <div class="card-content">
                             <div class="experience-item">
-                                <h4>Software Engineer Intern</h4>
+                                <h4 data-i18n="exp_title">Software Engineer Intern</h4>
                                 <p class="experience-company">Talya Bilişim</p>
-                                <p class="experience-date">June 30 - August 8, 2025</p>
-                                <p class="experience-text">Full-Stack Development</p>
+                                <p class="experience-date" data-i18n="exp_date">June 30 - August 8, 2025</p>
+                                <p class="experience-text" data-i18n="exp_text">Full-Stack Development</p>
                                 <div class="experience-tags">
-                                    <span class="tag">Development</span>
+                                    <span class="tag" data-i18n="exp_tag">Development</span>
                                 </div>
                             </div>
                         </div>
@@ -172,16 +152,16 @@
                     <div class="card passion-card">
                         <div class="card-header">
                             <i class="fas fa-rocket card-icon"></i>
-                            <h3>Passion & Skills</h3>
+                            <h3 data-i18n="passion_title">Passion &amp; Skills</h3>
                         </div>
                         <div class="card-content">
                             <div class="passion-item">
-                                <h4>🤖 Artificial Intelligence</h4>
-                                <p class="passion-text">Passionate about AI and its future potential</p>
+                                <h4>🤖 <span data-i18n="passion_ai">Artificial Intelligence</span></h4>
+                                <p class="passion-text" data-i18n="passion_ai_text">Passionate about AI and its future potential</p>
                             </div>
                             <div class="passion-item">
-                                <h4>📈 Project Leadership</h4>
-                                <p class="passion-text">Leading development teams and managing projects</p>
+                                <h4>📈 <span data-i18n="passion_lead">Project Leadership</span></h4>
+                                <p class="passion-text" data-i18n="passion_lead_text">Leading development teams and managing projects</p>
                             </div>
                         </div>
                     </div>
@@ -192,7 +172,7 @@
         <section class="section" id="skills">
             <div class="container">
                 <h2 class="section-title">
-                    <span class="title-glow">Technologies</span>
+                    <span class="title-glow" data-i18n="skills_title">Technologies</span>
                     <div class="title-underline"></div>
                 </h2>
                 <div class="tech-grid">
@@ -247,18 +227,18 @@
         <section class="section" id="contact">
             <div class="container">
                 <h2 class="section-title">
-                    <span class="title-glow">Contact Me</span>
+                    <span class="title-glow" data-i18n="contact_title">Contact Me</span>
                     <div class="title-underline"></div>
                 </h2>
                 <div class="contact-content">
                     <div class="contact-info">
-                        <h3>Let's Connect</h3>
-                        <p class="contact-text">I'm always open to discussing new opportunities and innovative projects.</p>
+                        <h3 data-i18n="contact_subtitle">Let's Connect</h3>
+                        <p class="contact-text" data-i18n="contact_text">I'm always open to discussing new opportunities and innovative projects.</p>
                         <div class="contact-links">
-                            <a href="mailto:alperenulukaya07@gmail.com" class="contact-link" aria-label="E-posta">
+                            <a href="mailto:alperenulukaya07@gmail.com" class="contact-link">
                                 <i class="fas fa-envelope contact-icon"></i>
                                 <div class="contact-details">
-                                    <span class="contact-label">Email</span>
+                                    <span class="contact-label" data-i18n="form_email">Email</span>
                                     <span class="contact-value">alperenulukaya07@gmail.com</span>
                                 </div>
                             </a>
@@ -280,24 +260,20 @@
                     </div>
                     <form class="contact-form" action="https://formspree.io/f/xjkobaya" method="POST">
                         <div class="form-group">
-                            <label for="name" class="form-label">Name</label>
+                            <label for="name" class="form-label" data-i18n="form_name">Name</label>
                             <input type="text" id="name" name="name" required />
-                            <div class="input-highlight"></div>
                         </div>
                         <div class="form-group">
-                            <label for="email" class="form-label">Email</label>
+                            <label for="email" class="form-label" data-i18n="form_email">Email</label>
                             <input type="email" id="email" name="email" required />
-                            <div class="input-highlight"></div>
                         </div>
                         <div class="form-group">
-                            <label for="message" class="form-label">Message</label>
+                            <label for="message" class="form-label" data-i18n="form_message">Message</label>
                             <textarea id="message" name="message" rows="5" required></textarea>
-                            <div class="input-highlight"></div>
                         </div>
-                        <button type="submit" class="submit-btn" aria-label="Mesajı Gönder">
+                        <button type="submit" class="submit-btn">
                             <i class="fas fa-paper-plane btn-icon"></i>
-                            <span class="btn-text">Send Message</span>
-                            <div class="btn-glow"></div>
+                            <span class="btn-text" data-i18n="form_submit">Send Message</span>
                         </button>
                     </form>
                 </div>
@@ -310,8 +286,8 @@
             <div class="footer-content">
                 <div class="footer-info">
                     <h3>Alperen Ulukaya</h3>
-                    <p class="footer-text">Computer Engineering Student & Software - AI Developer</p>
-                    <p class="footer-subtext">Building the future with code and AI</p>
+                    <p class="footer-text" data-i18n="hero_subtitle">Computer Engineering Student | Backend Development &amp; AI Systems</p>
+                    <p class="footer-subtext" data-i18n="footer_subtext">Building the future with code and AI</p>
                 </div>
                 <div class="footer-links">
                     <a href="https://github.com/ulukayalperen7" target="_blank" aria-label="GitHub">
@@ -320,53 +296,56 @@
                     <a href="https://www.linkedin.com/in/alperenulukaya/" target="_blank" aria-label="LinkedIn">
                         <i class="fab fa-linkedin"></i> LinkedIn
                     </a>
-                    <a href="mailto:alperenulukaya07@gmail.com" aria-label="E-posta">
-                        <i class="fas fa-envelope"></i> Email
+                    <a href="mailto:alperenulukaya07@gmail.com">
+                        <i class="fas fa-envelope"></i> <span data-i18n="form_email">Email</span>
                     </a>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Alperen Ulukaya. Crafted with passion and innovation.</p>
+                <p>&copy; <span id="copyright-year">2026</span> Alperen Ulukaya. <span data-i18n="footer_copyright">Crafted with passion and innovation.</span></p>
             </div>
         </div>
     </footer>
 
     <script src="js/script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked@18.0.13/lib/marked.umd.js"
+            integrity="sha384-Jy8qDMspJASzATgFngF2ompIKy0StbCcvuTE65mxDm/E0/YSIF6Ndc+5V7bbwRcw" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.4.15/dist/purify.min.js"
+            integrity="sha384-uUMu9JDY09vBzRf9SPcK2VgUj+W/70J6Soc+Dded5P474ElQ63iv9j5N3DE7Kp3N" crossorigin="anonymous"></script>
     <script src="js/chat.js"></script>
 
     <!-- Chat Widget -->
     <div class="chat-widget" id="chat-widget">
-        <button class="chat-toggle-btn" id="chat-toggle-btn" aria-label="Toggle Chat">
+        <button class="chat-toggle-btn" id="chat-toggle-btn" aria-label="Toggle chat" data-i18n="chat_toggle" data-i18n-attr="aria-label" aria-expanded="false" aria-controls="chat-container">
             <i class="fas fa-comment-dots"></i>
             <i class="fas fa-times"></i>
         </button>
-        <div class="chat-container">
+        <div class="chat-container" id="chat-container" inert aria-hidden="true">
             <div class="chat-header">
                 <div class="chat-header-icon">
                     <i class="fas fa-robot"></i>
                 </div>
                 <div class="chat-header-info">
-                    <h3 class="chat-header-title">Alperen's AI Assistant</h3>
-                    <div class="chat-header-status">
-                        <span class="status-dot"></span> Online
-                    </div>
+                    <h3 class="chat-header-title" data-i18n="chat_title">Alperen's AI Assistant</h3>
+                    <div class="chat-header-status" data-i18n="chat_status">Portfolio chat</div>
                 </div>
-                <button class="chat-close-btn" id="chat-close-btn" aria-label="Close Chat">
+                <button class="chat-close-btn" id="chat-close-btn" aria-label="Close chat" data-i18n="chat_close" data-i18n-attr="aria-label">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             <div class="chat-messages" id="chat-messages">
-                <!-- Initial messages will be added via JS -->
-                <div class="typing-indicator" id="typing-indicator">
-                    <div class="typing-dot"></div>
-                    <div class="typing-dot"></div>
-                    <div class="typing-dot"></div>
+                <div class="message bot">
+                    <p data-i18n="chat_greeting">Hi! Ask me about Alperen's background, experience, or skills.</p>
+                </div>
+                <div class="typing-indicator" id="typing-indicator" role="status" aria-label="Waiting for a reply" data-i18n="chat_loading" data-i18n-attr="aria-label">
+                    <div class="typing-dot" aria-hidden="true"></div>
+                    <div class="typing-dot" aria-hidden="true"></div>
+                    <div class="typing-dot" aria-hidden="true"></div>
                 </div>
             </div>
             <div class="chat-input-container">
-                <input type="text" class="chat-input" id="chat-input" placeholder="Type your message..." autocomplete="off" />
-                <button class="chat-send-btn" id="chat-send-btn" disabled aria-label="Send Message">
+                <input type="text" class="chat-input" id="chat-input" placeholder="Type your message..." aria-label="Type your message..." data-i18n="chat_input" data-i18n-attr="placeholder" autocomplete="off" />
+                <button class="chat-send-btn" id="chat-send-btn" disabled aria-label="Send Message" data-i18n="form_submit" data-i18n-attr="aria-label">
                     <i class="fas fa-paper-plane"></i>
                 </button>
             </div>
