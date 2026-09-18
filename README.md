@@ -35,5 +35,17 @@ Do not submit test messages to the production APIs during automated checks.
 
 - Phase 0: safe chat rendering, request serialization, mobile cascade, localized identity and honest contact behavior.
 - Phase 1: three JavaScript modules, one initialization path, semantic localization keys and optional preference storage.
+- Phase 2: projects before skills, separate experience, concise education and grouped stack.
 
 Browser automation was unavailable during these changes. Rendered verification remains required.
+
+## Content sources and limits
+
+Reviewed on 2026-09-18:
+
+- [TripMate README](https://github.com/ulukayalperen7/san-tsg-internship/blob/main/README.md): project purpose, Sanifest team membership, stack, public site URL, and backend-only external travel integration. Planned MVP items are not presented as individual accomplishments. No individual feature ownership is claimed.
+- [GiraffeGraph README](https://github.com/GiraffeGraph/giraffegraph-core/blob/main/README.md): extraction/validation/review workflow, development status, Python commands, PostgreSQL and Neo4j. The portfolio owner supplied this project as relevant work. Alperen's exact contribution/title was not independently verified, so none is published.
+- Talya company, dates and full-stack internship context come from the existing portfolio. No project from another person's forked README is attributed to Alperen.
+- SAN TSG / Paximum and 2026 come from the owner's explicit instructions. TripMate's public README confirms the internship context; an exact official title and date range are not established. The public entry says only “Internship”.
+- Education comes from the existing portfolio; Angular and FastAPI are supported by the existing public profile, React/PostgreSQL by TripMate. No proficiency percentages, metrics, current employment status or seniority are inferred.
+- AntAPP and the portfolio assistant were considered, but the selected work remains focused on the two requested projects. Internal employer details are not published.

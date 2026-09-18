@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title data-i18n="page.title">Alperen Ulukaya - Computer Engineering Student</title>
+    <title data-i18n="page.title">Alperen Ulukaya - Computer Engineering</title>
     <meta name="description" data-i18n="page.description" data-i18n-attr="content" content="Alperen Ulukaya's portfolio. Computer Engineering student focused on backend development and AI systems." />
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://alperenulukaya.com/" />
-    <meta property="og:title" data-i18n="page.title" data-i18n-attr="content" content="Alperen Ulukaya - Computer Engineering Student" />
+    <meta property="og:title" data-i18n="page.title" data-i18n-attr="content" content="Alperen Ulukaya - Computer Engineering" />
     <meta property="og:description" data-i18n="page.description" data-i18n-attr="content" content="Alperen Ulukaya's portfolio. Computer Engineering student focused on backend development and AI systems." />
     <!-- Twitter -->
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:url" content="https://alperenulukaya.com/" />
-    <meta name="twitter:title" data-i18n="page.title" data-i18n-attr="content" content="Alperen Ulukaya - Computer Engineering Student" />
+    <meta name="twitter:title" data-i18n="page.title" data-i18n-attr="content" content="Alperen Ulukaya - Computer Engineering" />
     <meta name="twitter:description" data-i18n="page.description" data-i18n-attr="content" content="Alperen Ulukaya's portfolio. Computer Engineering student focused on backend development and AI systems." />
 
     <link rel="stylesheet"
@@ -38,12 +38,13 @@
         <div class="nav-container">
             <div class="logo">
                 <span class="logo-text">Alperen Ulukaya</span>
-                <span class="logo-subtitle" data-i18n="logo.subtitle">Computer Engineering Student</span>
+                <span class="logo-subtitle" data-i18n="logo.subtitle">Computer Engineering</span>
             </div>
             <nav class="nav-menu" id="nav-menu">
-                <a href="#home" class="nav-link" data-i18n="nav.home">Home</a>
+                <a href="#projects" class="nav-link" data-i18n="nav.projects">Projects</a>
+                <a href="#experience" class="nav-link" data-i18n="nav.experience">Experience</a>
                 <a href="#about" class="nav-link" data-i18n="nav.about">About</a>
-                <a href="#skills" class="nav-link" data-i18n="nav.skills">Skills</a>
+                <a href="#skills" class="nav-link" data-i18n="nav.skills">Stack</a>
                 <a href="#contact" class="nav-link" data-i18n="nav.contact">Contact</a>
             </nav>
             <button class="hamburger" aria-label="Toggle navigation" data-i18n="nav.toggle" data-i18n-attr="aria-label" aria-expanded="false" aria-controls="nav-menu">
@@ -63,164 +64,81 @@
         </div>
     </header>
 
-    <main>
-        <section class="hero" id="home">
-            <div class="container">
-                <div class="hero-content">
-                    <div class="profile-photo">
-                        <div class="photo-frame">
-                            <div class="profile-placeholder">
-                                👨‍💻
-                            </div>
-                        </div>
-                        <div class="orbit-ring ring-1"></div>
-                        <div class="orbit-ring ring-2"></div>
-                        <div class="orbit-ring ring-3"></div>
-                    </div>
-                    <h1 class="hero-title">
-                        <span>Alperen Ulukaya</span>
-                    </h1>
-                    <p class="hero-subtitle">
-                        <span class="typing-text" data-i18n="hero.subtitle">Computer Engineering Student | Backend Development &amp; AI Systems</span>
-                    </p>
-                    <div class="hero-buttons">
-                        <a href="#contact" class="cta-button contact-btn">
-                            <i class="fas fa-envelope btn-icon"></i>
-                            <span class="btn-text" data-i18n="btn.contact">Get In Touch</span>
-                        </a>
-                        <a href="https://github.com/ulukayalperen7" class="cta-button github-btn" target="_blank" aria-label="GitHub">
-                            <i class="fab fa-github btn-icon"></i>
-                            <span class="btn-text">GitHub</span>
-                        </a>
-                        <a href="https://www.linkedin.com/in/alperenulukaya/" class="cta-button linkedin-btn" target="_blank" aria-label="LinkedIn">
-                            <i class="fab fa-linkedin btn-icon"></i>
-                            <span class="btn-text">LinkedIn</span>
-                        </a>
-                    </div>
+    <main id="main-content">
+        <section class="hero" id="home" aria-labelledby="hero-title">
+            <div class="container hero-content">
+                <div class="profile-photo">
+                    <div class="photo-frame"><div class="profile-placeholder">&#128104;&#8205;&#128187;</div></div>
+                    <div class="orbit-ring ring-1"></div><div class="orbit-ring ring-2"></div><div class="orbit-ring ring-3"></div>
+                </div>
+                <p class="eyebrow" data-i18n="hero.discipline">Computer Engineering</p>
+                <h1 class="hero-title" id="hero-title">Alperen Ulukaya</h1>
+                <p class="hero-subtitle" data-i18n="hero.focus">Backend &amp; AI Systems</p>
+                <p class="hero-intro" data-i18n="hero.intro">I study Computer Engineering at Akdeniz University and build applications that connect backend services, data, and AI.</p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="cta-button" data-i18n="hero.projects">Explore my work</a>
+                    <a href="https://github.com/ulukayalperen7" class="text-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+                    <a href="https://www.linkedin.com/in/alperenulukaya/" class="text-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                    <a href="#contact" class="text-link" data-i18n="nav.contact">Contact</a>
                 </div>
             </div>
         </section>
 
-        <section class="section" id="about">
+        <section class="section" id="projects" aria-labelledby="projects-title">
             <div class="container">
-                <h2 class="section-title">
-                    <span class="title-glow" data-i18n="about.title">About Me</span>
-                    <div class="title-underline"></div>
-                </h2>
-                <div class="cards-grid">
-                    <div class="card education-card">
-                        <div class="card-header">
-                            <i class="fas fa-graduation-cap card-icon"></i>
-                            <h3 data-i18n="education.title">Education</h3>
-                        </div>
-                        <div class="card-content">
-                            <div class="education-item">
-                                <h4 data-i18n="education.degree">Bachelor of Science - Computer Engineering</h4>
-                                <p class="education-detail" data-i18n="education.university">Akdeniz University (2023-2027)</p>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width: 60%"></div>
-                                </div>
-                            </div>
-                            <div class="education-item">
-                                <h4 data-i18n="education.prep">Preparatory School</h4>
-                                <p class="education-detail" data-i18n="education.prepSchool">Akdeniz University (2022-2023)</p>
-                                <div class="progress-bar">
-                                    <div class="progress-fill" style="width: 100%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card experience-card">
-                        <div class="card-header">
-                            <i class="fas fa-briefcase card-icon"></i>
-                            <h3 data-i18n="experience.title">Experience</h3>
-                        </div>
-                        <div class="card-content">
-                            <div class="experience-item">
-                                <h4 data-i18n="experience.talya.role">Software Engineer Intern</h4>
-                                <p class="experience-company">Talya Bilişim</p>
-                                <p class="experience-date" data-i18n="experience.talya.dates">June 30 - August 8, 2025</p>
-                                <p class="experience-text" data-i18n="experience.talya.summary">Full-Stack Development</p>
-                                <div class="experience-tags">
-                                    <span class="tag" data-i18n="experience.talya.tag">Development</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card passion-card">
-                        <div class="card-header">
-                            <i class="fas fa-rocket card-icon"></i>
-                            <h3 data-i18n="passion.title">Passion &amp; Skills</h3>
-                        </div>
-                        <div class="card-content">
-                            <div class="passion-item">
-                                <h4>🤖 <span data-i18n="passion.ai">Artificial Intelligence</span></h4>
-                                <p class="passion-text" data-i18n="passion.ai_text">Passionate about AI and its future potential</p>
-                            </div>
-                            <div class="passion-item">
-                                <h4>📈 <span data-i18n="passion.lead">Project Leadership</span></h4>
-                                <p class="passion-text" data-i18n="passion.lead_text">Leading development teams and managing projects</p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="section-heading"><p class="eyebrow" data-i18n="projects.label">Selected work</p><h2 id="projects-title" data-i18n="projects.title">Projects</h2></div>
+                <div class="project-list">
+                    <article class="project-entry">
+                        <div class="entry-heading"><h3>TripMate</h3><span class="entry-meta" data-i18n="projects.tripmate.context">SAN TSG internship project</span></div>
+                        <p data-i18n="projects.tripmate.summary">A travel application with a conversational interface for hotel and flight search, structured results, and a backend reservation flow.</p>
+                        <p data-i18n="projects.tripmate.engineering">External travel API calls stay behind the Spring Boot backend, which returns normalized responses to the interface.</p>
+                        <p class="entry-meta" data-i18n="projects.tripmate.role">Team member, Sanifest</p>
+                        <ul class="technology-list"><li>Java</li><li>Spring Boot</li><li>PostgreSQL</li><li>React</li><li>TypeScript</li></ul>
+                        <div class="entry-links"><a href="https://github.com/ulukayalperen7/san-tsg-internship" target="_blank" rel="noopener noreferrer" data-i18n="projects.source">Source code</a><a href="https://www.tripmateai.dev/" target="_blank" rel="noopener noreferrer" data-i18n="projects.live">Live site</a></div>
+                    </article>
+                    <article class="project-entry">
+                        <div class="entry-heading"><h3>GiraffeGraph</h3><span class="entry-meta" data-i18n="projects.giraffe.status">In development</span></div>
+                        <p data-i18n="projects.giraffe.summary">A platform for turning unstructured source material into a knowledge graph through extraction, validation, and review.</p>
+                        <p data-i18n="projects.giraffe.engineering">Schema-defined candidates are checked before being committed to the graph. Low-confidence results go through human review.</p>
+                        <ul class="technology-list"><li>Python</li><li>PostgreSQL</li><li>Neo4j</li></ul>
+                        <div class="entry-links"><a href="https://github.com/GiraffeGraph/giraffegraph-core" target="_blank" rel="noopener noreferrer" data-i18n="projects.source">Source code</a></div>
+                    </article>
                 </div>
             </div>
         </section>
 
-        <section class="section" id="skills">
+        <section class="section" id="experience" aria-labelledby="experience-title">
             <div class="container">
-                <h2 class="section-title">
-                    <span class="title-glow" data-i18n="skills.title">Technologies</span>
-                    <div class="title-underline"></div>
-                </h2>
-                <div class="tech-grid">
-                    <div class="tech-item">
-                        <i class="fas fa-robot tech-icon"></i>
-                        <div class="tech-name">Generative AI</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fas fa-brain tech-icon"></i>
-                        <div class="tech-name">Agentic AI</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fas fa-coffee tech-icon"></i>
-                        <div class="tech-name">Java</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fas fa-leaf tech-icon"></i>
-                        <div class="tech-name">Spring</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fab fa-node-js tech-icon"></i>
-                        <div class="tech-name">Node.js</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fas fa-scroll tech-icon"></i>
-                        <div class="tech-name">JavaScript</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fas fa-gem tech-icon"></i>
-                        <div class="tech-name">TypeScript</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fab fa-angular tech-icon"></i>
-                        <div class="tech-name">Angular</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fas fa-bolt tech-icon"></i>
-                        <div class="tech-name">FastAPI</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fab fa-python tech-icon"></i>
-                        <div class="tech-name">Python</div>
-                    </div>
-                    <div class="tech-item">
-                        <i class="fas fa-database tech-icon"></i>
-                        <div class="tech-name">SQL</div>
-                    </div>
+                <div class="section-heading"><p class="eyebrow" data-i18n="experience.label">Practical experience</p><h2 id="experience-title" data-i18n="experience.title">Experience</h2></div>
+                <div class="experience-list">
+                    <article class="experience-entry">
+                        <p class="entry-year">2026</p>
+                        <div><h3>SAN TSG / Paximum</h3><p class="entry-role" data-i18n="experience.san.role">Internship</p><p data-i18n="experience.san.summary">Part of the Sanifest team behind TripMate, an AI-assisted travel search and reservation application.</p></div>
+                    </article>
+                    <article class="experience-entry">
+                        <p class="entry-year">2025</p>
+                        <div><h3>Talya Bilişim</h3><p class="entry-role" data-i18n="experience.talya.role">Software Engineering Intern</p><p data-i18n="experience.talya.summary">Full-stack development internship.</p><p class="entry-meta" data-i18n="experience.talya.dates">June 30 – August 8, 2025</p></div>
+                    </article>
                 </div>
+            </div>
+        </section>
+
+        <section class="section" id="about" aria-labelledby="about-title">
+            <div class="container about-layout">
+                <div><p class="eyebrow" data-i18n="about.label">A little about me</p><h2 id="about-title" data-i18n="about.title">About</h2><p data-i18n="about.intro">I'm Alperen, a Computer Engineering student at Akdeniz University. My focus is backend development and the practical use of language models in software.</p><p data-i18n="about.direction">I'm interested in how an application fits together: its data, API boundaries, and the decisions that make it easier to maintain.</p></div>
+                <div class="education"><h3 data-i18n="education.title">Education</h3><p data-i18n="education.university">Akdeniz University</p><p data-i18n="education.degree">Computer Engineering · 2023–2027</p><p class="entry-meta" data-i18n="education.prep">Preparatory School · 2022–2023</p></div>
+            </div>
+        </section>
+
+        <section class="section" id="skills" aria-labelledby="skills-title">
+            <div class="container">
+                <div class="section-heading"><p class="eyebrow" data-i18n="skills.label">Tools behind the work</p><h2 id="skills-title" data-i18n="skills.title">Technical stack</h2></div>
+                <dl class="stack-list">
+                    <div><dt data-i18n="skills.backend">Backend</dt><dd>Java · Spring Boot · Python · FastAPI</dd></div>
+                    <div><dt data-i18n="skills.data">Data</dt><dd>PostgreSQL · SQL · Neo4j</dd></div>
+                    <div><dt data-i18n="skills.frontend">Frontend</dt><dd>JavaScript · TypeScript · React · Angular</dd></div>
+                    <div><dt data-i18n="skills.ai">AI integration</dt><dd data-i18n="skills.aiTools">Gemini · LLM APIs · Prompt design</dd></div>
+                </dl>
             </div>
         </section>
 
@@ -286,8 +204,8 @@
             <div class="footer-content">
                 <div class="footer-info">
                     <h3>Alperen Ulukaya</h3>
-                    <p class="footer-text" data-i18n="hero.subtitle">Computer Engineering Student | Backend Development &amp; AI Systems</p>
-                    <p class="footer-subtext" data-i18n="footer.subtext">Building the future with code and AI</p>
+                    <p class="footer-text" data-i18n="hero.focus">Backend &amp; AI Systems</p>
+                    <p class="footer-subtext" data-i18n="footer.subtext">Computer Engineering, Akdeniz University</p>
                 </div>
                 <div class="footer-links">
                     <a href="https://github.com/ulukayalperen7" target="_blank" aria-label="GitHub">
@@ -302,7 +220,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; <span id="copyright-year">2026</span> Alperen Ulukaya. <span data-i18n="footer.copyright">Crafted with passion and innovation.</span></p>
+                <p>&copy; <span id="copyright-year">2026</span> Alperen Ulukaya. <span data-i18n="footer.copyright">Personal portfolio.</span></p>
             </div>
         </div>
     </footer>
