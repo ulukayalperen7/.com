@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+export function initChat() {
     const chatWidget = document.getElementById('chat-widget');
     const chatContainer = document.getElementById('chat-container');
     const chatToggleBtn = document.getElementById('chat-toggle-btn');
@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatInput = document.getElementById('chat-input');
     const chatSendBtn = document.getElementById('chat-send-btn');
     const typingIndicator = document.getElementById('typing-indicator');
+
+    if (!chatWidget || !chatContainer || !chatInput || !chatSendBtn) return;
 
     let currentSessionId = null;
     let requestInFlight = false;
@@ -154,4 +156,4 @@ document.addEventListener('DOMContentLoaded', () => {
     function scrollToBottom() {
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
-});
+}
