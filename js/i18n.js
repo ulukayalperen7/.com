@@ -23,7 +23,7 @@ export function initI18n() {
         'projects.giraffe.status': "Geliştirme aşamasında",
         'projects.giraffe.summary': "Yapılandırılmamış kaynakları çıkarım, doğrulama ve inceleme adımlarıyla bilgi grafiğine dönüştürmeye yönelik bir platform.",
         'projects.giraffe.engineering': "Şemaya göre oluşturulan adaylar grafiğe kaydedilmeden önce doğrulanır. Düşük güvenli sonuçlar insan incelemesinden geçer.",
-        'projects.antepe.context': "Yazılım Mühendisliği dersi projesi",
+        'projects.antapp.context': "Yazılım Mühendisliği dersi projesi",
         'projects.source': "Kaynak kodu",
         'projects.live': "Siteyi ziyaret et",
         'projects.more': "Diğer Projeler",

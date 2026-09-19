@@ -54,9 +54,8 @@ rules, chat source and Formspree form. Mobile review is source-only.
 The final content pass removes the header subtitle, uses the owner's confirmed
 final-year identity, and describes both roles as Software Engineering Intern.
 Both experience rows use a date column followed by company, role and contribution.
-The stack and visual system are unchanged. Antepe is the third selected project;
-only its owner-confirmed name and course context are published pending identity
-confirmation against the public AntAPP repository.
+The stack and visual system are unchanged. AntAPP is the third selected project;
+its corrected name, course context and repository link are confirmed by the owner.
 
 The final UX pass removes the visible Formspree implementation note while keeping
 native form submission and its endpoint/fields. Chat clears submitted text
@@ -77,7 +76,6 @@ Browser automation was unavailable during these changes. Rendered verification r
 - With a local mocked chat response, inspect Markdown links, code, tables and malicious HTML/protocol payloads in a real browser. Repeat with the CDN blocked; replies should remain plain text.
 - Confirm navigation and native contact fields work with JavaScript disabled. A controlled live check is still needed for Render cold starts and Formspree delivery; automated checks never submit to either production service.
 - Supply an approved favicon and social preview image later. No missing or fabricated image references are published.
-- Confirm Antepe's repository identity before adding its purpose, technologies, contribution or links. The available public course-project README is titled AntAPP, and the mapping is unconfirmed.
 - Confirm GiraffeGraph contribution wording and SAN TSG / Paximum's exact date range. Source limits are recorded below.
 
 ## Content sources and limits
@@ -90,4 +88,4 @@ Reviewed on 2026-09-18; updated with the owner's refinement instructions:
 - SAN TSG / Paximum and 2026 come from the owner's instructions. Both entries use the owner-approved descriptive role “Software Engineering Intern”; SAN's exact date range is not established, so only the year is published.
 - Education comes from the existing portfolio; Angular and FastAPI are supported by the existing public profile, React/PostgreSQL by TripMate. No proficiency percentages, metrics, current employment status or seniority are inferred.
 - The owner explicitly confirmed project/coursework use of LLM integration, NLP, prompt engineering, Gemini API, LangGraph, CrewAI and AutoGen for the refinement pass. The framework list is representative, not an exhaustive list or a mastery claim.
-- Antepe's name and Software Engineering course context come from the owner. The [AntAPP README](https://github.com/ulukayalperen7/AntAPP/blob/main/README.md) describes an Antalya route/community platform and its technologies, but does not identify it as Antepe. Those details and URLs are not assigned to Antepe without confirmation. No individual contribution is inferred. Internal employer details are not published.
+- The owner confirmed the project name AntAPP, its Software Engineering course context and [repository](https://github.com/ulukayalperen7/AntAPP). The card contains that name, context and source link; no additional project details or individual contribution claims were added in the identity correction. Internal employer details are not published.
