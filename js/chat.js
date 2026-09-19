@@ -13,18 +13,19 @@ export function initChat() {
 
     let currentSessionId = null;
     let requestInFlight = false;
+    let draftEditedDuringRequest = false;
 
     const API_URL = 'https://career-ai-backend-sfcs.onrender.com/chat';
     // Allow time for a cold start, but never leave the interface waiting indefinitely.
     const REQUEST_TIMEOUT_MS = 90_000;
     const errorMessages = {
         en: {
-            failed: "I couldn't get a response. Your message is still in the input; you can edit it or try again.",
-            timeout: "The reply took too long. The server may still be processing it. Your message is still in the input; send it again only if you want to retry."
+            failed: "I couldn't get a reply from the portfolio assistant. Please try again.",
+            timeout: "The reply took too long. Please try again."
         },
         tr: {
-            failed: 'Yanıt alınamadı. Mesajınız giriş alanında duruyor; düzenleyebilir veya tekrar gönderebilirsiniz.',
-            timeout: 'Yanıt beklenenden uzun sürdü. Sunucu hâlâ işliyor olabilir. Mesajınız giriş alanında duruyor; yalnızca yeniden denemek isterseniz tekrar gönderin.'
+            failed: 'Portföy asistanından yanıt alınamadı. Lütfen tekrar deneyin.',
+            timeout: 'Yanıt beklenenden uzun sürdü. Lütfen tekrar deneyin.'
         }
     };
 
@@ -66,14 +67,18 @@ export function initChat() {
         chatSendBtn.disabled = requestInFlight || chatInput.value.trim() === '';
     }
 
-    chatInput.addEventListener('input', updateSendButton);
+    chatInput.addEventListener('input', () => {
+        if (requestInFlight) draftEditedDuringRequest = true;
+        updateSendButton();
+    });
 
     async function sendMessage() {
         const messageText = chatInput.value.trim();
         if (requestInFlight || !messageText || !chatWidget.classList.contains('open')) return;
 
         requestInFlight = true;
-        chatInput.readOnly = true;
+        draftEditedDuringRequest = false;
+        chatInput.value = '';
         updateSendButton();
 
         appendMessage('user', messageText);
@@ -111,16 +116,18 @@ export function initChat() {
                 throw new Error('Invalid chat response');
             }
             appendMessage('bot', reply);
-            chatInput.value = '';
 
         } catch (error) {
             console.error('Chat request failed:', error);
+            // An intentionally cleared new draft also takes priority over recovery.
+            if (!draftEditedDuringRequest && chatInput.value === '') {
+                chatInput.value = messageText;
+            }
             const messages = errorMessages[document.documentElement.lang] || errorMessages.en;
             appendMessage('bot', controller.signal.aborted ? messages.timeout : messages.failed).classList.add('error');
         } finally {
             clearTimeout(timeout);
             requestInFlight = false;
-            chatInput.readOnly = false;
             typingIndicator.classList.remove('active');
             chatMessages.setAttribute('aria-busy', 'false');
             updateSendButton();

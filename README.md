@@ -58,6 +58,16 @@ The stack and visual system are unchanged. Antepe is the third selected project;
 only its owner-confirmed name and course context are published pending identity
 confirmation against the public AntAPP repository.
 
+The final UX pass removes the visible Formspree implementation note while keeping
+native form submission and its endpoint/fields. Chat clears submitted text
+immediately and allows a new draft during the request. Failure or timeout restores
+the submitted text only if the input was not edited; a newer or intentionally
+cleared draft is preserved. Success never restores the submitted text or erases a
+new draft. Requests remain serialized, with no automatic retries and the same
+`{ message, session_id }` payload. Failure messages are neutral in both languages.
+Static checks and the expanded mocked draft-recovery tests pass; browser and
+live-service verification remain separate.
+
 Browser automation was unavailable during these changes. Rendered verification remains required.
 
 ## Remaining verification and assets

@@ -105,7 +105,6 @@ button:disabled { cursor: not-allowed; }
 .form-group input, .form-group textarea { width: 100%; min-width: 0; border: 1px solid var(--border); border-radius: 5px; padding: 0.7rem 0.85rem; background: var(--surface); color: var(--text); }
 .form-group textarea { resize: vertical; min-height: 9rem; }
 .submit-btn { align-self: flex-start; }
-.form-note { font-size: 0.8rem; color: var(--muted); }
 
 /* Footer */
 .footer { padding-block: 2.5rem 6rem; border-top: 1px solid var(--border); }

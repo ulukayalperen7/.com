@@ -50,7 +50,6 @@ export function initI18n() {
         'form.email': "E-posta",
         'form.message': "Mesaj",
         'form.submit': "Mesajı Gönder",
-        'form.note': "Bu form Formspree üzerinden gönderilir. Gönderdikten sonra sonucu görmek için bu sayfadan ayrılacaksınız.",
         'footer.subtext': "Bilgisayar Mühendisliği, Akdeniz Üniversitesi",
         'footer.copyright': "Kişisel portföy.",
         'education.degree': "Bilgisayar Mühendisliği · 2023–2027",

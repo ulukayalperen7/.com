@@ -21,6 +21,7 @@ function page(language = 'en', storageBlocked = false) {
             this.tagName = tag; this.attrs = attrs; this.children = []; this.events = {};
             this.style = {setProperty() {}}; this.value = ''; this._text = ''; this.offsetTop = 100; this.offsetHeight = 70;
             this.id = attrs.id || ''; this.inert = 'inert' in attrs; this.disabled = 'disabled' in attrs;
+            this.readOnly = 'readonly' in attrs;
             this.dataset = Object.fromEntries(Object.entries(attrs).filter(([k]) => k.startsWith('data-')).map(([k,v]) => [k.slice(5).replace(/-([a-z])/g, (_,c) => c.toUpperCase()),v]));
             const classes = new Set((attrs.class || '').split(/\s+/));
             this.classList = {
@@ -134,12 +135,15 @@ function page(language = 'en', storageBlocked = false) {
     assert.equal(p.requests.length,1);
     assert.deepEqual(JSON.parse(p.requests[0].options.body),{message:'<img src=x onerror=alert(1)> **text**',session_id:null});
     assert.equal(id('chat-messages').children.at(-1).children.length,0);
-    assert.equal(id('chat-input').readOnly,true);
+    assert.equal(id('chat-messages').children.at(-1).textContent,'<img src=x onerror=alert(1)> **text**');
+    assert.equal(id('chat-input').value,'','Sending clears the input immediately');
+    assert.equal(id('chat-input').readOnly,false,'Visitors can compose a new draft while waiting');
     await id('chat-input').emit('input');
     await id('chat-input').emit('keydown',{key:'Enter'}); await id('chat-send-btn').emit('click');
     assert.equal(p.requests.length,1,'Duplicate sends blocked'); assert.equal(id('chat-send-btn').disabled,true);
     await id('chat-close-btn').emit('click');
     p.requests[0].resolve({ok:true,json:async()=>({response:'Answer',session_id:'session-1'})}); await first;
+    assert.equal(id('chat-input').value,'','Success must not restore the submitted text');
     assert.equal(p.document.activeElement,id('chat-toggle-btn')); assert.equal(id('chat-container').inert,true);
     await id('chat-toggle-btn').emit('click');
     id('chat-input').value='Next question';
@@ -166,6 +170,37 @@ function page(language = 'en', storageBlocked = false) {
     assert.equal(id('chat-input').readOnly,false);
     assert.equal(id('typing-indicator').classList.contains('active'),false);
     assert.equal(p.timers.size,0);
+
+    for (const result of ['success','failure','timeout']) {
+        id('chat-input').value='Submitted message';
+        const pending=id('chat-send-btn').emit('click');
+        const request=p.requests.at(-1), count=p.requests.length;
+        assert.equal(id('chat-input').value,'');
+        id('chat-input').value='A new draft';
+        await id('chat-input').emit('input');
+        assert.equal(id('chat-send-btn').disabled,true);
+        await id('chat-input').emit('keydown',{key:'Enter'});
+        await id('chat-send-btn').emit('click');
+        assert.equal(p.requests.length,count,'New draft cannot bypass the in-flight guard');
+        if(result==='success')request.resolve({ok:true,json:async()=>({response:'A reply'})});
+        if(result==='failure')request.reject(Error('unavailable'));
+        if(result==='timeout')[...p.timers.values()].find(t=>t.delay===90_000).cb();
+        await pending;
+        assert.equal(id('chat-input').value,'A new draft',`${result} must preserve a newer draft`);
+        assert.equal(id('chat-send-btn').disabled,false);
+        assert.equal(id('typing-indicator').classList.contains('active'),false);
+        assert.equal(p.requests.length,count,'Completion must not send the new draft automatically');
+    }
+    id('chat-input').value='Another submitted message';
+    const editedThenCleared=id('chat-send-btn').emit('click');
+    id('chat-input').value='A draft I decided to discard';
+    await id('chat-input').emit('input');
+    id('chat-input').value='';
+    await id('chat-input').emit('input');
+    p.requests.at(-1).reject(Error('unavailable'));
+    await editedThenCleared;
+    assert.equal(id('chat-input').value,'','An intentionally discarded new draft must stay empty');
+    assert.equal(id('chat-send-btn').disabled,true);
 
     // Verify our sanitizer boundary and options; this mock does not test DOMPurify itself.
     const unsafeReply = '<img src=x onerror=alert(1)> [link](javascript:alert(1))';
@@ -218,5 +253,5 @@ function page(language = 'en', storageBlocked = false) {
         assert.equal(fallback.children.length,0,mode);
         assert.equal(fallback.classList.contains('plain-text'),true,mode);
     }
-    console.log('PASS: mocked initialization, preferences, EN/TR, menu, native form, chat concurrency/session/errors/timeout/focus and sanitizer boundary/fallbacks.');
+    console.log('PASS: mocked initialization, preferences, EN/TR, menu, native form, chat clearing/draft recovery/concurrency/session/errors/timeout/focus and sanitizer boundary/fallbacks.');
 })();
