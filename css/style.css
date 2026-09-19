@@ -36,9 +36,10 @@ button:disabled { cursor: not-allowed; }
 .container, .nav-container { width: min(var(--content-width), calc(100% - 4rem)); margin-inline: auto; }
 .section { padding-block: clamp(3.5rem, 8vw, 6rem); border-top: 1px solid var(--border); }
 .section-heading { margin-bottom: 2.5rem; }
+.section-description { max-width: 42rem; margin-top: 1rem; color: var(--muted); }
 .eyebrow { color: var(--muted); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase; margin-bottom: 1rem; }
 .entry-meta, .entry-year { color: var(--muted); font-size: 0.875rem; }
-.text-link, .entry-links a { display: inline-flex; min-height: 44px; align-items: center; }
+.entry-links a { display: inline-flex; min-height: 44px; align-items: center; }
 .cta-button, .submit-btn { display: inline-flex; justify-content: center; align-items: center; min-height: 46px; padding: 0.65rem 1.15rem; border: 1px solid var(--accent); border-radius: 5px; background: var(--accent); color: var(--accent-ink); font-weight: 600; text-decoration: none; }
 .cta-button:hover, .submit-btn:hover { text-decoration: underline; text-underline-offset: 0.25em; }
 
@@ -92,6 +93,7 @@ button:disabled { cursor: not-allowed; }
 .stack-list > div { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 2rem; padding-block: 1.2rem; border-top: 1px solid var(--border); }
 .stack-list dt { font-weight: 600; }
 .stack-list dd { color: var(--muted); }
+.stack-list dd p + p { margin-top: 0.35rem; }
 
 /* Contact */
 .contact-content { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 5rem; }

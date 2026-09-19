@@ -32,7 +32,7 @@ accessibility-tree behavior, sanitizer behavior in a browser, or delivery to ext
 Do not submit test messages to the production APIs during automated checks.
 
 Final checks on 2026-09-19 cover JavaScript syntax, local references, semantic IDs,
-all 67 translation keys, theme token contrast, API contracts, preference failures,
+all translation keys, theme token contrast, API contracts, preference failures,
 menu controls, request serialization, timeout recovery and sanitizer boundaries.
 Sanitizer tests inspect the options and plain-text fallback with mocked libraries;
 they do not replace browser XSS tests against the pinned CDN libraries.
@@ -45,6 +45,11 @@ they do not replace browser XSS tests against the pinned CDN libraries.
 - Phase 3: system typography, neutral themes with a green accent, compact hero, responsive content and integrated chat. Removed decorative animations, old card styles, font/icon CDNs and placeholder avatar.
 - Phase 4: native section anchors with measured header offset, clear Formspree handoff, 90-second chat timeout and retained input on failure. No automatic retries; browser abort does not guarantee cancellation of server-side LLM work.
 - Phase 5: skip link, named chat region/log, explicit input label, keyboard-scrollable code/tables, stronger border contrast, no-JavaScript navigation, canonical URL and nonblocking optional Markdown scripts.
+- Refinement: one hero action, a secondary GitHub link after the two selected projects, compact social links in the footer, and technologies framed as project/coursework experience. AI & NLP separates core areas from representative tools without proficiency claims.
+
+Refinement verification: all 68 EN/TR keys and existing checks pass. Focused checks
+confirm link destinations, retained contact options, Neo4j, unchanged responsive
+rules, chat source and Formspree form. Mobile review is source-only.
 
 Browser automation was unavailable during these changes. Rendered verification remains required.
 
@@ -59,11 +64,12 @@ Browser automation was unavailable during these changes. Rendered verification r
 
 ## Content sources and limits
 
-Reviewed on 2026-09-18:
+Reviewed on 2026-09-18; updated with the owner's refinement instructions:
 
 - [TripMate README](https://github.com/ulukayalperen7/san-tsg-internship/blob/main/README.md): project purpose, Sanifest team membership, stack, public site URL, and backend-only external travel integration. Planned MVP items are not presented as individual accomplishments. No individual feature ownership is claimed.
 - [GiraffeGraph README](https://github.com/GiraffeGraph/giraffegraph-core/blob/main/README.md): extraction/validation/review workflow, development status, Python commands, PostgreSQL and Neo4j. The portfolio owner supplied this project as relevant work. Alperen's exact contribution/title was not independently verified, so none is published.
 - Talya company, dates and full-stack internship context come from the existing portfolio. No project from another person's forked README is attributed to Alperen.
 - SAN TSG / Paximum and 2026 come from the owner's explicit instructions. TripMate's public README confirms the internship context; an exact official title and date range are not established. The public entry says only “Internship”.
 - Education comes from the existing portfolio; Angular and FastAPI are supported by the existing public profile, React/PostgreSQL by TripMate. No proficiency percentages, metrics, current employment status or seniority are inferred.
+- The owner explicitly confirmed project/coursework use of LLM integration, NLP, prompt engineering, Gemini API, LangGraph, CrewAI and AutoGen for the refinement pass. The framework list is representative, not an exhaustive list or a mastery claim.
 - AntAPP and the portfolio assistant were considered, but the selected work remains focused on the two requested projects. Internal employer details are not published.
