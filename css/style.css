@@ -48,7 +48,6 @@ button:disabled { cursor: not-allowed; }
 .nav-container { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 1.5rem; align-items: center; padding-block: 1rem; }
 .logo { display: flex; flex-direction: column; color: var(--text); text-decoration: none; justify-self: start; }
 .logo-text { font-size: 1rem; font-weight: 650; letter-spacing: -0.02em; }
-.logo-subtitle { font-size: 0.7rem; color: var(--muted); }
 .nav-menu { display: flex; align-items: center; gap: 0.85rem; }
 .nav-link { display: inline-flex; align-items: center; min-height: 44px; color: var(--muted); font-size: 0.83rem; text-decoration: none; }
 .nav-link:hover { color: var(--text); text-decoration: underline; text-underline-offset: 0.45em; }
@@ -138,7 +137,6 @@ button:disabled { cursor: not-allowed; }
     .container, .nav-container { width: calc(100% - 2rem); }
     .nav-container { gap: 0.35rem; padding-block: 0.7rem; }
     .logo-text { font-size: 0.85rem; }
-    .logo-subtitle { display: none; }
     .nav-controls { gap: 0.25rem; }
     .hero-buttons { gap: 0.5rem 1.15rem; }
     .hero-buttons .cta-button { flex-basis: 100%; margin-bottom: 0.5rem; }
