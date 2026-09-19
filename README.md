@@ -31,6 +31,12 @@ The interaction checks use a minimal DOM mock. They do not prove browser layout,
 accessibility-tree behavior, sanitizer behavior in a browser, or delivery to external services.
 Do not submit test messages to the production APIs during automated checks.
 
+Final checks on 2026-09-19 cover JavaScript syntax, local references, semantic IDs,
+all 67 translation keys, theme token contrast, API contracts, preference failures,
+menu controls, request serialization, timeout recovery and sanitizer boundaries.
+Sanitizer tests inspect the options and plain-text fallback with mocked libraries;
+they do not replace browser XSS tests against the pinned CDN libraries.
+
 ## Progress
 
 - Phase 0: safe chat rendering, request serialization, mobile cascade, localized identity and honest contact behavior.
@@ -38,8 +44,18 @@ Do not submit test messages to the production APIs during automated checks.
 - Phase 2: projects before skills, separate experience, concise education and grouped stack.
 - Phase 3: system typography, neutral themes with a green accent, compact hero, responsive content and integrated chat. Removed decorative animations, old card styles, font/icon CDNs and placeholder avatar.
 - Phase 4: native section anchors with measured header offset, clear Formspree handoff, 90-second chat timeout and retained input on failure. No automatic retries; browser abort does not guarantee cancellation of server-side LLM work.
+- Phase 5: skip link, named chat region/log, explicit input label, keyboard-scrollable code/tables, stronger border contrast, no-JavaScript navigation, canonical URL and nonblocking optional Markdown scripts.
 
 Browser automation was unavailable during these changes. Rendered verification remains required.
+
+## Remaining verification and assets
+
+- Check 320, 375, 430, 768, 1024px and desktop widths in both languages and themes. Inspect long Turkish labels, header wrapping, projects, contact and chat, including the mobile keyboard.
+- Use keyboard-only navigation: skip link, mobile menu open/link/Escape, theme/language controls, chat open/close/Escape, long code blocks and tables. Check screen-reader announcements for loading and replies, and reduced motion.
+- With a local mocked chat response, inspect Markdown links, code, tables and malicious HTML/protocol payloads in a real browser. Repeat with the CDN blocked; replies should remain plain text.
+- Confirm navigation and native contact fields work with JavaScript disabled. A controlled live check is still needed for Render cold starts and Formspree delivery; automated checks never submit to either production service.
+- Supply an approved favicon and social preview image later. No missing or fabricated image references are published.
+- Confirm GiraffeGraph contribution wording, SAN TSG / Paximum's official title/date range, and any concrete Talya contributions before adding them. Source limits are recorded below.
 
 ## Content sources and limits
 

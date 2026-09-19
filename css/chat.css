@@ -17,7 +17,7 @@
 .message.plain-text { white-space: pre-wrap; }
 .message p + p { margin-top: 0.65rem; }
 .message ul, .message ol { padding-left: 1.25rem; margin-block: 0.5rem; }
-.message h1, .message h2, .message h3, .message h4, .message h5, .message h6 { font-size: 1rem; margin-block: 0.7rem; }
+.message h3, .message h4, .message h5, .message h6 { font-size: 1rem; margin-block: 0.7rem; }
 .message a { overflow-wrap: anywhere; }
 .message pre { max-width: 100%; overflow-x: auto; padding: 0.75rem; background: var(--page); border: 1px solid var(--border); border-radius: 4px; margin-block: 0.5rem; white-space: pre; }
 .message code { font: 0.8rem/1.6 ui-monospace, Consolas, monospace; }
@@ -25,7 +25,9 @@
 .message blockquote { margin: 0.5rem 0; padding-left: 0.75rem; border-left: 2px solid var(--accent); }
 .message table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; }
 .message td, .message th { padding: 0.35rem; border: 1px solid var(--border); }
-.typing-indicator { display: none; color: var(--muted); font-size: 0.8rem; padding: 0.25rem; }
+.message.error { color: var(--error); border: 1px solid var(--error); }
+.chat-messages:focus-visible, .message pre:focus-visible, .message table:focus-visible { outline-offset: -2px; }
+.typing-indicator { display: none; flex: none; color: var(--muted); font-size: 0.8rem; padding: 0.5rem 1rem; }
 .typing-indicator.active { display: block; }
 .chat-input-container { flex: none; display: flex; gap: 0.5rem; padding: 0.75rem; border-top: 1px solid var(--border); }
 .chat-input { flex: 1; min-width: 0; width: 0; border: 1px solid var(--border); border-radius: 4px; background: var(--page); color: var(--text); padding: 0.65rem; font-size: 1rem; }

@@ -18,6 +18,7 @@ function initTheme() {
         applyTheme();
         try { localStorage.setItem('theme', theme); } catch { /* Keep the choice for this page. */ }
     });
+    if (button) button.hidden = false;
 }
 
 function initNavigation() {
@@ -51,6 +52,7 @@ function initNavigation() {
     window.matchMedia('(max-width: 60rem)').addEventListener('change', () => setMenuOpen(false));
     if (typeof ResizeObserver !== 'undefined') new ResizeObserver(measureHeader).observe(header);
     else window.addEventListener('resize', measureHeader);
+    document.body.classList.add('navigation-ready');
     measureHeader();
 }
 

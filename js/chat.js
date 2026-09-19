@@ -8,7 +8,8 @@ export function initChat() {
     const chatSendBtn = document.getElementById('chat-send-btn');
     const typingIndicator = document.getElementById('typing-indicator');
 
-    if (!chatWidget || !chatContainer || !chatInput || !chatSendBtn) return;
+    if (!chatWidget || !chatContainer || !chatInput || !chatSendBtn ||
+            !chatToggleBtn || !chatCloseBtn || !chatMessages || !typingIndicator) return;
 
     let currentSessionId = null;
     let requestInFlight = false;
@@ -115,7 +116,7 @@ export function initChat() {
         } catch (error) {
             console.error('Chat request failed:', error);
             const messages = errorMessages[document.documentElement.lang] || errorMessages.en;
-            appendMessage('bot', controller.signal.aborted ? messages.timeout : messages.failed);
+            appendMessage('bot', controller.signal.aborted ? messages.timeout : messages.failed).classList.add('error');
         } finally {
             clearTimeout(timeout);
             requestInFlight = false;
@@ -145,7 +146,7 @@ export function initChat() {
                 }), {
                     ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'b', 'i', 's', 'del',
                         'ul', 'ol', 'li', 'blockquote', 'pre', 'code', 'hr',
-                        'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'a',
+                        'h3', 'h4', 'h5', 'h6', 'a',
                         'table', 'thead', 'tbody', 'tr', 'th', 'td'],
                     ALLOWED_ATTR: ['href', 'title'],
                     ALLOW_DATA_ATTR: false,
@@ -157,6 +158,9 @@ export function initChat() {
                     link.setAttribute('target', '_blank');
                     link.setAttribute('rel', 'noopener noreferrer');
                 });
+                fragment.querySelectorAll('pre, table').forEach(block => {
+                    block.setAttribute('tabindex', '0');
+                });
                 messageDiv.replaceChildren(fragment);
                 messageDiv.classList.remove('plain-text');
             } catch {
@@ -164,11 +168,13 @@ export function initChat() {
             }
         }
 
-        chatMessages.insertBefore(messageDiv, typingIndicator);
+        chatMessages.appendChild(messageDiv);
         scrollToBottom();
+        return messageDiv;
     }
 
     function scrollToBottom() {
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
+    chatWidget.hidden = false;
 }

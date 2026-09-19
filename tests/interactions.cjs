@@ -83,7 +83,7 @@ function page(language = 'en', storageBlocked = false) {
         const source = fs.readFileSync(path.join(root,`js/${name}.js`),'utf8').replace(/^import .*;\r?\n/gm,'').replace(/^export /gm,'');
         vm.runInContext(source,context,{filename:`${name}.js`});
     }
-    return {document,nodes,requests,context,errors,timers,mediaEvents,storage};
+    return {document,nodes,requests,context,errors,timers,mediaEvents,documentEvents,storage};
 }
 
 (async () => {
@@ -91,6 +91,10 @@ function page(language = 'en', storageBlocked = false) {
     assert.equal(p.errors.length,0,'Initialization errors');
     assert.equal(p.requests.length,0);
     assert.equal(id('chat-container').inert,true);
+    assert.equal(id('chat-widget').hidden,false);
+    assert.equal(select('.theme-toggle').hidden,false);
+    assert.equal(select('.lang-toggle').hidden,false);
+    assert.equal(p.document.body.classList.contains('navigation-ready'),true);
     const english = p.nodes.filter(n => n.dataset.i18n).map(n => [n,n.dataset.i18nAttr ? n.getAttribute(n.dataset.i18nAttr) : n.textContent]);
     await select('.lang-toggle').emit('click'); assert.equal(p.document.documentElement.lang,'tr');
     await select('.lang-toggle').emit('click'); assert.equal(p.document.documentElement.lang,'en');
@@ -101,16 +105,35 @@ function page(language = 'en', storageBlocked = false) {
     await select('.hamburger').emit('click'); assert.equal(select('.nav-menu').classList.contains('open'),false);
     await select('.hamburger').emit('click'); await select('.nav-link').emit('click');
     assert.equal(select('.hamburger').getAttribute('aria-expanded'),'false');
+    await select('.hamburger').emit('click');
+    p.documentEvents.keydown.forEach(callback => callback({key:'Escape'}));
+    assert.equal(select('.hamburger').getAttribute('aria-expanded'),'false');
+    assert.equal(p.document.activeElement,select('.hamburger'));
+    await select('.hamburger').emit('click');
+    p.mediaEvents.change();
+    assert.equal(select('.nav-menu').classList.contains('open'),false);
+    await select('.hamburger').emit('click');
+    p.documentEvents.click.forEach(callback => callback({target:id('main-content')}));
+    assert.equal(select('.nav-menu').classList.contains('open'),false);
     assert.equal(select('.contact-form').events.submit,undefined);
     assert.equal(page('invalid').document.documentElement.lang,'en');
     assert.equal(page('tr').document.documentElement.lang,'tr');
     assert.equal(page('tr',true).errors.length,0,'Storage failure must not break initialization');
     await id('chat-toggle-btn').emit('click'); assert.equal(p.requests.length,0);
+    id('chat-input').value = '   ';
+    await id('chat-input').emit('keydown',{key:'Enter'});
+    id('chat-input').value = 'Composing a question';
+    await id('chat-input').emit('keydown',{key:'Enter',isComposing:true});
+    assert.equal(p.requests.length,0,'Blank input and IME composition must not send');
+    await id('chat-container').emit('keydown',{key:'Escape'});
+    assert.equal(p.document.activeElement,id('chat-toggle-btn'));
+    assert.equal(id('chat-toggle-btn').getAttribute('aria-expanded'),'false');
+    await id('chat-toggle-btn').emit('click');
     id('chat-input').value = '<img src=x onerror=alert(1)> **text**';
     const first = id('chat-send-btn').emit('click');
     assert.equal(p.requests.length,1);
     assert.deepEqual(JSON.parse(p.requests[0].options.body),{message:'<img src=x onerror=alert(1)> **text**',session_id:null});
-    assert.equal(id('chat-messages').children.at(-2).children.length,0);
+    assert.equal(id('chat-messages').children.at(-1).children.length,0);
     assert.equal(id('chat-input').readOnly,true);
     await id('chat-input').emit('input');
     await id('chat-input').emit('keydown',{key:'Enter'}); await id('chat-send-btn').emit('click');
@@ -143,5 +166,57 @@ function page(language = 'en', storageBlocked = false) {
     assert.equal(id('chat-input').readOnly,false);
     assert.equal(id('typing-indicator').classList.contains('active'),false);
     assert.equal(p.timers.size,0);
-    console.log('PASS: mocked initialization, storage failure, EN/TR round trip, themes, menu, native form, chat serialization/session/errors and closed-chat focus.');
+
+    // Verify our sanitizer boundary and options; this mock does not test DOMPurify itself.
+    const unsafeReply = '<img src=x onerror=alert(1)> [link](javascript:alert(1))';
+    let sanitizerOptions, parsedInput, sanitizedInput;
+    const link = p.document.createElement('a'), code = p.document.createElement('pre');
+    const fragment = {
+        textContent:'Sanitized content',
+        contains:node => node === link || node === code,
+        querySelectorAll:selector => selector === 'a[href]' ? [link] : [code]
+    };
+    p.context.marked = {parse:text => {parsedInput=text; return '<p>Parsed content</p>';}};
+    p.context.DOMPurify = {isSupported:true,sanitize:(text,options) => {
+        sanitizedInput=text; sanitizerOptions=options; return fragment;
+    }};
+    async function receiveReply(reply) {
+        id('chat-input').value='A real visitor question';
+        const pending=id('chat-send-btn').emit('click');
+        p.requests.at(-1).resolve({ok:true,json:async()=>({response:reply})});
+        await pending;
+        return id('chat-messages').children.at(-1);
+    }
+    const rendered = await receiveReply(unsafeReply);
+    assert.equal(parsedInput,unsafeReply);
+    assert.equal(sanitizedInput,'<p>Parsed content</p>');
+    assert.equal(rendered.children[0],fragment,'Only sanitized fragments reach the DOM');
+    assert.equal(sanitizerOptions.RETURN_DOM_FRAGMENT,true);
+    assert.deepEqual(Array.from(sanitizerOptions.ALLOWED_ATTR),['href','title']);
+    assert.equal(sanitizerOptions.ALLOW_DATA_ATTR,false);
+    assert.equal(sanitizerOptions.ALLOW_ARIA_ATTR,false);
+    for (const tag of ['script','style','iframe','svg','math','img','form','input','h1','h2']) {
+        assert.equal(sanitizerOptions.ALLOWED_TAGS.includes(tag),false,tag);
+    }
+    for (const url of ['javascript:alert(1)','data:text/html,test','vbscript:test','//example.com','/relative','java\nscript:test']) {
+        assert.equal(sanitizerOptions.ALLOWED_URI_REGEXP.test(url),false,url);
+    }
+    for (const url of ['https://example.com','http://example.com','mailto:person@example.com']) {
+        assert.equal(sanitizerOptions.ALLOWED_URI_REGEXP.test(url),true,url);
+    }
+    assert.equal(link.getAttribute('target'),'_blank');
+    assert.equal(link.getAttribute('rel'),'noopener noreferrer');
+    assert.equal(code.getAttribute('tabindex'),'0');
+    for (const mode of ['missing','unsupported','sanitizer-error','parser-error']) {
+        p.context.marked = {parse:text=>text};
+        p.context.DOMPurify = {isSupported:true,sanitize:()=>{throw Error('unavailable');}};
+        if(mode==='missing')delete p.context.DOMPurify;
+        if(mode==='unsupported')p.context.DOMPurify.isSupported=false;
+        if(mode==='parser-error')p.context.marked.parse=()=>{throw Error('parser unavailable');};
+        const fallback=await receiveReply(unsafeReply);
+        assert.equal(fallback.textContent,unsafeReply,mode);
+        assert.equal(fallback.children.length,0,mode);
+        assert.equal(fallback.classList.contains('plain-text'),true,mode);
+    }
+    console.log('PASS: mocked initialization, preferences, EN/TR, menu, native form, chat concurrency/session/errors/timeout/focus and sanitizer boundary/fallbacks.');
 })();

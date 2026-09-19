@@ -59,16 +59,17 @@ export function initI18n() {
         'experience.talya.dates': "30 Haziran - 8 Ağustos 2025",
         'experience.talya.summary': "Full-stack geliştirme stajı.",
         'nav.toggle': "Menüyü aç/kapat",
-        'theme.toggle': "Temayı değiştir",
-        'language.toggle': "İngilizceye geç",
-        'chat.toggle': "Sohbeti aç/kapat",
+        'nav.skip': "İçeriğe geç",
+        'theme.toggle': "Açık tema",
+        'language.toggle': "Dil: TR. İngilizceye geç",
         'chat.close': "Sohbeti kapat",
         'chat.title': "Portföy asistanı",
         'chat.launcher': "Çalışmalarımı sorun",
         'chat.status': "Portföy sohbeti",
         'chat.greeting': "Merhaba! Alperen'in eğitimi, deneyimi veya becerileri hakkında soru sorabilirsiniz.",
         'chat.loading': "Yanıt bekleniyor",
-        'chat.input': "Mesajınızı yazın..."
+        'chat.input': "Mesajınızı yazın...",
+        'chat.label': "Sohbet mesajı"
     };
     const localizedElements = Array.from(document.querySelectorAll('[data-i18n]'), element => {
         const attribute = element.dataset.i18nAttr;
@@ -87,7 +88,6 @@ export function initI18n() {
             const text = lang === 'tr' ? (turkishTranslations[key] ?? english) : english;
             if (attribute) {
                 element.setAttribute(attribute, text);
-                if (element.id === 'chat-input') element.setAttribute('aria-label', text);
             } else {
                 element.textContent = text;
             }
@@ -106,4 +106,5 @@ export function initI18n() {
         applyLanguage(lang);
         try { localStorage.setItem('language', lang); } catch { /* Keep the choice for this page. */ }
     });
+    if (langToggleBtn) langToggleBtn.hidden = false;
 }

@@ -3,7 +3,7 @@
     color-scheme: dark;
     --page: #121917; --surface: #1b2520; --surface-soft: #202d25;
     --text: #edf2ee; --muted: #b0bfb6; --accent: #a8d5b5; --accent-ink: #14271b;
-    --border: #52645b; --focus: #c0e6cc; --error: #ffb4a8;
+    --border: #6a7e71; --focus: #c0e6cc; --error: #ffb4a8;
     --shadow: 0 18px 50px rgb(0 0 0 / 24%);
     --content-width: 68rem; --header-height: 5rem;
 }
@@ -11,7 +11,7 @@ body.light-mode {
     color-scheme: light;
     --page: #f6f5f0; --surface: #ffffff; --surface-soft: #eaf0e9;
     --text: #202c26; --muted: #536158; --accent: #276444; --accent-ink: #ffffff;
-    --border: #84958a; --focus: #205d3c; --error: #a02c27;
+    --border: #7b8d80; --focus: #205d3c; --error: #a02c27;
     --shadow: 0 18px 50px rgb(24 43 30 / 12%);
 }
 
@@ -119,9 +119,10 @@ button:disabled { cursor: not-allowed; }
 @media (max-width: 60rem) {
     .nav-container { grid-template-columns: minmax(0, 1fr) auto auto; gap: 0.65rem; }
     .nav-controls { grid-column: 2; grid-row: 1; }
-    .hamburger { display: inline-flex; grid-column: 3; grid-row: 1; }
-    .nav-menu { display: none; grid-column: 1 / -1; grid-row: 2; flex-wrap: wrap; gap: 0.25rem 1.5rem; padding-top: 0.75rem; border-top: 1px solid var(--border); }
-    .nav-menu.open { display: flex; }
+    .navigation-ready .hamburger { display: inline-flex; grid-column: 3; grid-row: 1; }
+    .nav-menu { display: flex; grid-column: 1 / -1; grid-row: 2; flex-wrap: wrap; gap: 0.25rem 1.5rem; padding-top: 0.75rem; border-top: 1px solid var(--border); }
+    .navigation-ready .nav-menu { display: none; }
+    .navigation-ready .nav-menu.open { display: flex; }
     .about-layout, .contact-content { gap: 2.5rem; }
 }
 @media (max-width: 48rem) {
@@ -144,6 +145,9 @@ button:disabled { cursor: not-allowed; }
 }
 
 /* Accessibility */
+.skip-link { position: fixed; top: 0.5rem; left: 1rem; z-index: 40; padding: 0.65rem 1rem; background: var(--accent); color: var(--accent-ink); transform: translateY(-180%); }
+.skip-link:focus { transform: translateY(0); }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
 :focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }

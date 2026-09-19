@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="canonical" href="https://alperenulukaya.com/" />
     <title data-i18n="page.title">Alperen Ulukaya - Computer Engineering</title>
     <meta name="description" data-i18n="page.description" data-i18n-attr="content" content="Alperen Ulukaya's portfolio. Computer Engineering student focused on backend development and AI systems." />
     <!-- Open Graph / Facebook -->
@@ -16,10 +17,11 @@
     <meta name="twitter:title" data-i18n="page.title" data-i18n-attr="content" content="Alperen Ulukaya - Computer Engineering" />
     <meta name="twitter:description" data-i18n="page.description" data-i18n-attr="content" content="Alperen Ulukaya's portfolio. Computer Engineering student focused on backend development and AI systems." />
 
-<link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/chat.css" />
 </head>
 <body>
+    <a class="skip-link" href="#main-content" data-i18n="nav.skip">Skip to content</a>
     <header class="header">
         <div class="nav-container">
             <a class="logo" href="#home">
@@ -34,23 +36,23 @@
                 <a href="#contact" class="nav-link" data-i18n="nav.contact">Contact</a>
             </nav>
             <div class="nav-controls">
-                <button class="theme-toggle" aria-label="Change theme" data-i18n="theme.toggle" data-i18n-attr="aria-label">
+                <button class="theme-toggle" hidden aria-label="Light theme" data-i18n="theme.toggle" data-i18n-attr="aria-label" aria-pressed="false">
                     <span class="theme-symbol" aria-hidden="true"></span>
                 </button>
-                <button class="lang-toggle" aria-label="Switch to Turkish" data-i18n="language.toggle" data-i18n-attr="aria-label">
+                <button class="lang-toggle" hidden aria-label="Language: EN. Switch to Turkish" data-i18n="language.toggle" data-i18n-attr="aria-label">
                     <span class="flag-en">EN</span>
                     <span class="flag-tr" style="display:none">TR</span>
                 </button>
             </div>
             <button class="hamburger" aria-label="Toggle navigation" data-i18n="nav.toggle" data-i18n-attr="aria-label" aria-expanded="false" aria-controls="nav-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
+                <span class="bar" aria-hidden="true"></span>
+                <span class="bar" aria-hidden="true"></span>
+                <span class="bar" aria-hidden="true"></span>
             </button>
         </div>
     </header>
 
-    <main id="main-content">
+    <main id="main-content" tabindex="-1">
         <section class="hero" id="home" aria-labelledby="hero-title">
             <div class="container hero-content">
                 <p class="eyebrow" data-i18n="hero.discipline">Computer Engineering</p>
@@ -155,11 +157,11 @@
                     <form class="contact-form" action="https://formspree.io/f/xjkobaya" method="POST" aria-describedby="form-note">
                         <div class="form-group">
                             <label for="name" class="form-label" data-i18n="form.name">Name</label>
-                            <input type="text" id="name" name="name" required />
+                            <input type="text" id="name" name="name" autocomplete="name" required />
                         </div>
                         <div class="form-group">
                             <label for="email" class="form-label" data-i18n="form.email">Email</label>
-                            <input type="email" id="email" name="email" required />
+                            <input type="email" id="email" name="email" autocomplete="email" required />
                         </div>
                         <div class="form-group">
                             <label for="message" class="form-label" data-i18n="form.message">Message</label>
@@ -198,37 +200,38 @@
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/marked@18.0.13/lib/marked.umd.js"
+    <script async src="https://cdn.jsdelivr.net/npm/marked@18.0.13/lib/marked.umd.js"
             integrity="sha384-Jy8qDMspJASzATgFngF2ompIKy0StbCcvuTE65mxDm/E0/YSIF6Ndc+5V7bbwRcw" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.4.15/dist/purify.min.js"
+    <script async src="https://cdn.jsdelivr.net/npm/dompurify@3.4.15/dist/purify.min.js"
             integrity="sha384-uUMu9JDY09vBzRf9SPcK2VgUj+W/70J6Soc+Dded5P474ElQ63iv9j5N3DE7Kp3N" crossorigin="anonymous"></script>
     <script type="module" src="js/main.js"></script>
 
     <!-- Chat Widget -->
-    <div class="chat-widget" id="chat-widget">
-        <button class="chat-toggle-btn" id="chat-toggle-btn" aria-label="Toggle chat" data-i18n="chat.toggle" data-i18n-attr="aria-label" aria-expanded="false" aria-controls="chat-container">
+    <div class="chat-widget" id="chat-widget" hidden>
+        <button class="chat-toggle-btn" id="chat-toggle-btn" aria-expanded="false" aria-controls="chat-container">
             <span data-i18n="chat.launcher">Ask about my work</span>
         </button>
-        <div class="chat-container" id="chat-container" inert aria-hidden="true">
+        <section class="chat-container" id="chat-container" inert aria-hidden="true" aria-labelledby="chat-title">
             <div class="chat-header">
 
                 <div class="chat-header-info">
-                    <h2 class="chat-header-title" data-i18n="chat.title">Portfolio assistant</h2>
+                    <h2 class="chat-header-title" id="chat-title" data-i18n="chat.title">Portfolio assistant</h2>
                     <div class="chat-header-status" data-i18n="chat.status">Portfolio chat</div>
                 </div>
                 <button class="chat-close-btn" id="chat-close-btn" aria-label="Close chat" data-i18n="chat.close" data-i18n-attr="aria-label"><span aria-hidden="true">&times;</span></button>
             </div>
-            <div class="chat-messages" id="chat-messages">
+            <div class="chat-messages" id="chat-messages" role="log" aria-live="polite" aria-relevant="additions" aria-labelledby="chat-title" tabindex="0">
                 <div class="message bot">
                     <p data-i18n="chat.greeting">Hi! Ask me about Alperen's background, experience, or skills.</p>
                 </div>
-                <div class="typing-indicator" id="typing-indicator" role="status"><span data-i18n="chat.loading">Waiting for a reply...</span></div>
             </div>
+            <div class="typing-indicator" id="typing-indicator" role="status"><span data-i18n="chat.loading">Waiting for a reply...</span></div>
             <div class="chat-input-container">
-                <input type="text" class="chat-input" id="chat-input" placeholder="Type your message..." aria-label="Type your message..." data-i18n="chat.input" data-i18n-attr="placeholder" autocomplete="off" />
+                <label for="chat-input" class="sr-only" data-i18n="chat.label">Chat message</label>
+                <input type="text" class="chat-input" id="chat-input" placeholder="Type your message..." data-i18n="chat.input" data-i18n-attr="placeholder" autocomplete="off" />
                 <button class="chat-send-btn" id="chat-send-btn" disabled aria-label="Send Message" data-i18n="form.submit" data-i18n-attr="aria-label"><span aria-hidden="true">&uarr;</span></button>
             </div>
-        </div>
+        </section>
     </div>
 </body>
 </html>
