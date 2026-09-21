@@ -18,6 +18,7 @@ export function initChat() {
     const API_URL = 'https://career-ai-backend-sfcs.onrender.com/chat';
     // Allow time for a cold start, but never leave the interface waiting indefinitely.
     const REQUEST_TIMEOUT_MS = 90_000;
+    const MAX_MESSAGE_LENGTH = 4000;
     const errorMessages = {
         en: {
             failed: "I couldn't get a reply from the portfolio assistant. Please try again.",
@@ -64,7 +65,8 @@ export function initChat() {
     chatSendBtn.addEventListener('click', sendMessage);
 
     function updateSendButton() {
-        chatSendBtn.disabled = requestInFlight || chatInput.value.trim() === '';
+        chatSendBtn.disabled = requestInFlight || chatInput.value.trim() === '' ||
+            chatInput.value.length > MAX_MESSAGE_LENGTH;
     }
 
     chatInput.addEventListener('input', () => {
@@ -74,7 +76,8 @@ export function initChat() {
 
     async function sendMessage() {
         const messageText = chatInput.value.trim();
-        if (requestInFlight || !messageText || !chatWidget.classList.contains('open')) return;
+        if (requestInFlight || !messageText || chatInput.value.length > MAX_MESSAGE_LENGTH ||
+                !chatWidget.classList.contains('open')) return;
 
         requestInFlight = true;
         draftEditedDuringRequest = false;
@@ -107,18 +110,18 @@ export function initChat() {
 
             const data = await response.json();
 
-            if (typeof data.session_id === 'string' && data.session_id) {
-                currentSessionId = data.session_id;
-            }
-
-            const reply = data.response || data.agent_response;
-            if (typeof reply !== 'string' || !reply.trim()) {
+            if (!data || typeof data.response !== 'string' || !data.response.trim() ||
+                    Array.from(data.response).length > 8000 ||
+                    typeof data.session_id !== 'string' || !data.session_id.trim() ||
+                    data.session_id.length > 128) {
                 throw new Error('Invalid chat response');
             }
-            appendMessage('bot', reply);
+            // Commit the session only after the complete response is usable.
+            appendMessage('bot', data.response);
+            currentSessionId = data.session_id;
 
-        } catch (error) {
-            console.error('Chat request failed:', error);
+        } catch {
+            console.error('Chat request failed.');
             // An intentionally cleared new draft also takes priority over recovery.
             if (!draftEditedDuringRequest && chatInput.value === '') {
                 chatInput.value = messageText;

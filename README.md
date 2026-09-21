@@ -69,6 +69,26 @@ live-service verification remain separate.
 
 Browser automation was unavailable during these changes. Rendered verification remains required.
 
+Final pre-deployment audit (2026-09-21): the approved visual design, 67 EN/TR keys,
+Formspree endpoint, CNAME and project content remain unchanged. Chat input is capped
+at 4,000 characters. A successful reply must include a nonblank bounded `response`
+and `session_id` before the session is changed; malformed replies preserve the
+previous session and follow the existing draft-recovery/error flow. Raw exceptions
+are no longer printed in the browser console. The obsolete `agent_response` alias
+was removed; the current backend contract remains `{ response, session_id }`.
+Both frontend check scripts pass, including malformed-response/session regressions
+and input-limit enforcement. Pinned CDN scripts were fetched read-only and both
+SHA-384 integrity values matched. No browser was connected, so actual browser
+sanitizer behavior, rendered breakpoints and accessibility-tree behavior remain
+unverified. No live contact/chat submissions were made.
+Read-only HEAD checks returned HTTP 200 for the GitHub profile, all three selected
+project repositories and the TripMate live link. LinkedIn sign-in/bot restrictions
+and actual contact delivery still require a visitor-side check.
+
+Backend CORS now allows the apex and www portfolio HTTPS origins by default. To
+test against a locally configured backend, add the explicit local frontend origin
+to its `CORS_ORIGINS`; do not weaken production CORS for localhost convenience.
+
 ## Remaining verification and assets
 
 - Check 320, 375, 430, 768, 1024px and desktop widths in both languages and themes. Inspect long Turkish labels, header wrapping, projects, contact and chat, including the mobile keyboard.

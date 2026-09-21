@@ -149,7 +149,7 @@ function page(language = 'en', storageBlocked = false) {
     id('chat-input').value='Next question';
     const second=id('chat-send-btn').emit('click');
     assert.equal(JSON.parse(p.requests[1].options.body).session_id,'session-1');
-    p.requests[1].resolve({ok:true,json:async()=>({agent_response:'Legacy answer',session_id:'session-1'})}); await second;
+    p.requests[1].resolve({ok:true,json:async()=>({response:'Next answer',session_id:'session-1'})}); await second;
     assert.equal(id('typing-indicator').classList.contains('active'),false);
     assert.equal(id('chat-send-btn').disabled,true);
     for (const mode of ['network','http','json','empty']) {
@@ -160,6 +160,29 @@ function page(language = 'en', storageBlocked = false) {
         assert.equal(id('chat-input').value,mode,'Failed input remains recoverable');
         assert.equal(id('chat-input').readOnly,false);
     }
+    for (const invalid of [null, [], {response:'Reply'}, {response:'',session_id:'poisoned'},
+            {response:'Reply',session_id:'x'.repeat(129)},
+            {response:'x'.repeat(8001),session_id:'poisoned'},
+            {agent_response:'Obsolete response',session_id:'poisoned'}]) {
+        id('chat-input').value='Recoverable question';
+        const pending=id('chat-send-btn').emit('click');
+        const request=p.requests.at(-1);
+        assert.equal(JSON.parse(request.options.body).session_id,'session-1','Malformed replies must not change the session');
+        request.resolve({ok:true,json:async()=>invalid});
+        await pending;
+        assert.equal(id('chat-input').value,'Recoverable question');
+        assert.equal(id('chat-messages').children.at(-1).classList.contains('error'),true);
+        assert.equal(id('typing-indicator').classList.contains('active'),false);
+    }
+    const beforeOversized=p.requests.length;
+    assert.equal(id('chat-input').getAttribute('maxlength'),'4000');
+    id('chat-input').value='x'.repeat(4001);
+    await id('chat-input').emit('input');
+    assert.equal(id('chat-send-btn').disabled,true);
+    await id('chat-input').emit('keydown',{key:'Enter'});
+    await id('chat-send-btn').emit('click');
+    assert.equal(p.requests.length,beforeOversized,'Oversized input cannot bypass the button');
+
     id('chat-input').value='Slow request';
     const slow=id('chat-send-btn').emit('click');
     const requestCount=p.requests.length;
@@ -182,7 +205,7 @@ function page(language = 'en', storageBlocked = false) {
         await id('chat-input').emit('keydown',{key:'Enter'});
         await id('chat-send-btn').emit('click');
         assert.equal(p.requests.length,count,'New draft cannot bypass the in-flight guard');
-        if(result==='success')request.resolve({ok:true,json:async()=>({response:'A reply'})});
+        if(result==='success')request.resolve({ok:true,json:async()=>({response:'A reply',session_id:'session-1'})});
         if(result==='failure')request.reject(Error('unavailable'));
         if(result==='timeout')[...p.timers.values()].find(t=>t.delay===90_000).cb();
         await pending;
@@ -218,7 +241,7 @@ function page(language = 'en', storageBlocked = false) {
     async function receiveReply(reply) {
         id('chat-input').value='A real visitor question';
         const pending=id('chat-send-btn').emit('click');
-        p.requests.at(-1).resolve({ok:true,json:async()=>({response:reply})});
+        p.requests.at(-1).resolve({ok:true,json:async()=>({response:reply,session_id:'session-1'})});
         await pending;
         return id('chat-messages').children.at(-1);
     }
