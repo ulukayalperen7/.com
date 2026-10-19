@@ -81,7 +81,6 @@
                         <p data-i18n="projects.giraffe.summary">A platform for turning unstructured source material into a knowledge graph through extraction, validation, and review.</p>
                         <p data-i18n="projects.giraffe.engineering">Schema-defined candidates are checked before being committed to the graph. Low-confidence results go through human review.</p>
                         <ul class="technology-list"><li>Python</li><li>PostgreSQL</li><li>Neo4j</li></ul>
-                        <div class="entry-links"><a href="https://github.com/GiraffeGraph/giraffegraph-core" target="_blank" rel="noopener noreferrer" data-i18n="projects.source">Source code</a></div>
                     </article>
                     <article class="project-entry">
                         <div class="entry-heading"><h3>AntAPP</h3><span class="entry-meta" data-i18n="projects.antapp.context">Software Engineering course project</span></div>
@@ -243,9 +242,10 @@
             <div class="typing-indicator" id="typing-indicator" role="status"><span data-i18n="chat.loading">Waiting for a reply...</span></div>
             <div class="chat-input-container">
                 <label for="chat-input" class="sr-only" data-i18n="chat.label">Chat message</label>
-                <input type="text" class="chat-input" id="chat-input" placeholder="Type your message..." data-i18n="chat.input" data-i18n-attr="placeholder" autocomplete="off" maxlength="4000" />
+                <input type="text" class="chat-input" id="chat-input" placeholder="Type your message..." data-i18n="chat.input" data-i18n-attr="placeholder" autocomplete="off" aria-describedby="chat-validation" />
                 <button class="chat-send-btn" id="chat-send-btn" disabled aria-label="Send Message" data-i18n="form.submit" data-i18n-attr="aria-label"><span aria-hidden="true">&uarr;</span></button>
             </div>
+            <p id="chat-validation" class="chat-validation" role="alert" hidden data-i18n="chat.tooLong">Please shorten your message to 2,000 characters or fewer.</p>
         </section>
     </div>
 </body>

@@ -7,9 +7,10 @@ export function initChat() {
     const chatInput = document.getElementById('chat-input');
     const chatSendBtn = document.getElementById('chat-send-btn');
     const typingIndicator = document.getElementById('typing-indicator');
+    const validationMessage = document.getElementById('chat-validation');
 
     if (!chatWidget || !chatContainer || !chatInput || !chatSendBtn ||
-            !chatToggleBtn || !chatCloseBtn || !chatMessages || !typingIndicator) return;
+            !chatToggleBtn || !chatCloseBtn || !chatMessages || !typingIndicator || !validationMessage) return;
 
     let currentSessionId = null;
     let requestInFlight = false;
@@ -18,7 +19,7 @@ export function initChat() {
     const API_URL = 'https://career-ai-backend-sfcs.onrender.com/chat';
     // Allow time for a cold start, but never leave the interface waiting indefinitely.
     const REQUEST_TIMEOUT_MS = 90_000;
-    const MAX_MESSAGE_LENGTH = 4000;
+    const MAX_MESSAGE_LENGTH = 2000;
     const errorMessages = {
         en: {
             failed: "I couldn't get a reply from the portfolio assistant. Please try again.",
@@ -65,8 +66,12 @@ export function initChat() {
     chatSendBtn.addEventListener('click', sendMessage);
 
     function updateSendButton() {
+        // Match Python's Unicode character count, not HTML maxlength's UTF-16 units.
+        const tooLong = Array.from(chatInput.value).length > MAX_MESSAGE_LENGTH;
+        validationMessage.hidden = !tooLong;
+        chatInput.setAttribute('aria-invalid', String(tooLong));
         chatSendBtn.disabled = requestInFlight || chatInput.value.trim() === '' ||
-            chatInput.value.length > MAX_MESSAGE_LENGTH;
+            tooLong;
     }
 
     chatInput.addEventListener('input', () => {
@@ -75,8 +80,9 @@ export function initChat() {
     });
 
     async function sendMessage() {
+        updateSendButton();
         const messageText = chatInput.value.trim();
-        if (requestInFlight || !messageText || chatInput.value.length > MAX_MESSAGE_LENGTH ||
+        if (requestInFlight || !messageText || Array.from(chatInput.value).length > MAX_MESSAGE_LENGTH ||
                 !chatWidget.classList.contains('open')) return;
 
         requestInFlight = true;

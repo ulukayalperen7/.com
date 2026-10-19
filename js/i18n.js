@@ -69,7 +69,8 @@ export function initI18n() {
         'chat.greeting': "Merhaba! Alperen'in eğitimi, deneyimi veya becerileri hakkında soru sorabilirsiniz.",
         'chat.loading': "Yanıt bekleniyor",
         'chat.input': "Mesajınızı yazın...",
-        'chat.label': "Sohbet mesajı"
+        'chat.label': "Sohbet mesajı",
+        'chat.tooLong': "Lütfen mesajınızı 2.000 karakter veya daha kısa olacak şekilde kısaltın."
     };
     const localizedElements = Array.from(document.querySelectorAll('[data-i18n]'), element => {
         const attribute = element.dataset.i18nAttr;

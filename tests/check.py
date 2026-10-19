@@ -80,6 +80,12 @@ assert "DOMPurify.sanitize" in chat and "messageDiv.textContent = text" in chat
 assert chat.count("fetch(") == 1
 assert "message: messageText" in chat and "session_id: currentSessionId" in chat
 assert "https://career-ai-backend-sfcs.onrender.com/chat" in chat
+giraffe_card = re.search(r'<article\b[^>]*>\s*<div class="entry-heading"><h3>GiraffeGraph</h3>[\s\S]*?</article>', html)
+assert giraffe_card, "GiraffeGraph project must remain"
+assert not re.search(r'<a\b', giraffe_card[0]), "No unverified GiraffeGraph source link"
+for url in ("https://github.com/ulukayalperen7/AntAPP",
+            "https://github.com/ulukayalperen7/san-tsg-internship", "https://www.tripmateai.dev/"):
+    assert any(n["attrs"].get("href") == url for n in page.nodes), url
 form = next(n for n in page.nodes if n["tag"] == "form" and n["attrs"].get("class") == "contact-form")
 assert form["attrs"]["action"] == "https://formspree.io/f/xjkobaya"
 assert form["attrs"]["method"].upper() == "POST"

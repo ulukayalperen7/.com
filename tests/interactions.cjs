@@ -175,13 +175,48 @@ function page(language = 'en', storageBlocked = false) {
         assert.equal(id('typing-indicator').classList.contains('active'),false);
     }
     const beforeOversized=p.requests.length;
-    assert.equal(id('chat-input').getAttribute('maxlength'),'4000');
-    id('chat-input').value='x'.repeat(4001);
+    assert.equal(id('chat-input').getAttribute('maxlength'),null,'Use Unicode character validation, not UTF-16 maxlength');
+    id('chat-input').value='x'.repeat(2001);
     await id('chat-input').emit('input');
     assert.equal(id('chat-send-btn').disabled,true);
     await id('chat-input').emit('keydown',{key:'Enter'});
     await id('chat-send-btn').emit('click');
     assert.equal(p.requests.length,beforeOversized,'Oversized input cannot bypass the button');
+    assert.equal(id('chat-input').value,'x'.repeat(2001),'Validation preserves the draft');
+    assert.equal(id('chat-validation').hidden,false);
+    assert.equal(id('chat-input').getAttribute('aria-invalid'),'true');
+    assert.equal(id('chat-validation').textContent,'Please shorten your message to 2,000 characters or fewer.');
+    await select('.lang-toggle').emit('click');
+    assert.equal(id('chat-validation').textContent,'Lütfen mesajınızı 2.000 karakter veya daha kısa olacak şekilde kısaltın.');
+    await id('chat-input').emit('keydown',{key:'Enter'});
+    assert.equal(p.requests.length,beforeOversized,'Turkish validation must also block the request');
+    await select('.lang-toggle').emit('click');
+
+    for (const language of ['en','tr']) {
+        if (p.document.documentElement.lang !== language) await select('.lang-toggle').emit('click');
+        for (const character of ['x','\u{1F600}']) {
+            id('chat-input').value=character.repeat(2000);
+            await id('chat-input').emit('input');
+            assert.equal(id('chat-send-btn').disabled,false);
+            assert.equal(id('chat-validation').hidden,true);
+            assert.equal(id('chat-input').getAttribute('aria-invalid'),'false');
+            const before=p.requests.length;
+            const pending=id('chat-send-btn').emit('click');
+            assert.equal(p.requests.length,before+1,'Exactly 2000 characters are accepted');
+            const request=p.requests.at(-1);
+            assert.equal(JSON.parse(request.options.body).message,character.repeat(2000));
+            request.resolve({ok:true,json:async()=>({response:'Answer',session_id:'session-1'})});
+            await pending;
+            id('chat-input').value=character.repeat(2001);
+            // Check the submission guard even when no input event was dispatched.
+            await id('chat-input').emit('keydown',{key:'Enter'});
+            await id('chat-send-btn').emit('click');
+            assert.equal(p.requests.length,before+1,'2001 characters never reach the network');
+            assert.equal(id('chat-validation').hidden,false);
+            assert.equal(id('chat-input').value,character.repeat(2001));
+        }
+    }
+    await select('.lang-toggle').emit('click');
 
     id('chat-input').value='Slow request';
     const slow=id('chat-send-btn').emit('click');

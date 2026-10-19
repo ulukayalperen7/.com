@@ -22,6 +22,20 @@ Only theme and language preferences are stored locally; conversation state is in
 
 ## Verification
 
+Final production fixes (2026-10-19): chat submissions are limited to 2,000 Unicode
+characters, matching the backend. Over-limit drafts remain editable and show an
+English/Turkish validation message; neither Enter nor the send button can submit
+them. JavaScript counts Unicode code points because native HTML `maxlength` counts
+UTF-16 units and would reject valid emoji-containing messages too early. Existing
+network-error recovery, session handling and sanitization are unchanged.
+
+The GiraffeGraph source link returned 404 during the production audit. Repository
+history contained no alternative public URL, so only that card's source-link row
+was removed. Its description/technologies and TripMate/AntAPP links are unchanged.
+The historical source citation below is retained as provenance, not a working
+visitor link. Both check scripts pass, including 2,000/2,001-character boundaries
+in English/Turkish and with supplementary Unicode characters.
+
 ```sh
 python -B tests/check.py
 node tests/interactions.cjs
